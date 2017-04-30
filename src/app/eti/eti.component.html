@@ -1,0 +1,13 @@
+<h1>
+  {{ eti.nombre }}
+</h1>
+
+<h1>Listado de Inscriptos</h1>
+<md-nav-list>
+  <md-list-item *ngFor="let inscripto of eti.inscripciones">
+     <a md-line href="...">{{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
+     <button md-icon-button>
+        <md-icon>create</md-icon>
+     </button>
+  </md-list-item>
+</md-nav-list>

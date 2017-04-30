@@ -1,0 +1,7 @@
+<md-toolbar>
+  <a md-button routerLink="/etis">Etis</a>
+  <a md-button routerLink="/inscripcion">Inscripcion</a>
+
+  <a md-button routerLink="/login" *ngIf="!auth.authenticated()">Log In</a>
+  <a md-button (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</a>
+</md-toolbar>

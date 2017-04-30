@@ -1,0 +1,14 @@
+<h3>Listado de Etis</h3>
+<div fxLayout="row">
+  <div fxFlex="40">
+    <md-input-container>
+      <input mdInput type="text" id="buscar" placeholder="Buscar" class="form-control" required minlength="4" maxlength="24" name="buscar">
+    </md-input-container>
+  </div>
+  <div fxFlex="60">
+    <md-nav-list>
+      <a md-list-item [routerLink]="['/eti', eti._id]" *ngFor="let eti of etis">{{ eti.nombre }}</a>
+    </md-nav-list>
+  </div>
+
+</div>

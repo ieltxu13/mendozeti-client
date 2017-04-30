@@ -1,0 +1,15 @@
+<div fxLayout='column'>
+  <div fxFlex="33">
+    <md-input-container>
+      <input mdInput type="text" id="password" placeholder="Usuario" class="form-control" required minlength="4" maxlength="24" name="usuario" [(ngModel)]="usuario.usuario">
+    </md-input-container>
+  </div>
+  <div fxFlex="33">
+    <md-input-container>
+      <input mdInput type="password" id="password" placeholder="Password" class="form-control" required minlength="4" maxlength="24" name="password" [(ngModel)]="usuario.password">
+    </md-input-container>
+  </div>
+  <div fxFlex="33">
+    <button md-raised-button (click)="login()">Login</button>
+  </div>
+</div>
