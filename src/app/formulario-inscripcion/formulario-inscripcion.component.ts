@@ -14,7 +14,7 @@ export class FormularioInscripcionComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this._etiService.getEtis();
   }
 
   inscribir() {

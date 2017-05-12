@@ -14,7 +14,7 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
 
-    this._http.post('http://localhost:7000/auth/authenticate', usuario,options)
+    this._http.post('http://localhost:3000/auth/authenticate', usuario,options)
     .map(res => res.json())
     .subscribe(
     token => {

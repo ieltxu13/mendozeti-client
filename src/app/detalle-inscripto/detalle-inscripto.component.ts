@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { EtiService } from '../eti.service';
-@Component({
-  selector: 'app-eti',
-  templateUrl: './eti.component.html',
-  styleUrls: ['./eti.component.css']
-})
-export class EtiComponent implements OnInit {
 
-  eti: any;
+@Component({
+  selector: 'app-detalle-inscripto',
+  templateUrl: './detalle-inscripto.component.html',
+  styleUrls: ['./detalle-inscripto.component.css']
+})
+export class DetalleInscriptoComponent implements OnInit {
+
+  inscripto: any;
   constructor(private _route: ActivatedRoute, private _etiService: EtiService) { }
 
   ngOnInit() {
    this._route.params.subscribe(params => {
-      this._etiService.getEti(params['id'])
-      .subscribe(eti => {
-        this.eti = eti;
-      });
+
+      this.inscripto = this._etiService.getInscripto(params['id'])
    });
  }
 

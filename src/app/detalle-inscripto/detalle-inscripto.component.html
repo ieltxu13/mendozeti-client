@@ -1,0 +1,16 @@
+<md-card>
+  <md-card-title>{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
+
+  <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
+    <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+    <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+    <md-option [value]="'Inscripto'">Inscripto</md-option>
+  </md-select>
+
+  <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
+  <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
+  <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
+  <h3>Email:</h3><span> {{ inscripto.email }}</span>
+  <h3>Telefono:</h3><span> {{ inscripto.telefono1 }}</span>
+  <h3>Telefono 2:</h3><span> {{ inscripto.telefono2 || 'No' }}</span>
+</md-card>

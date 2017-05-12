@@ -16,6 +16,7 @@ import { FormularioInscripcionComponent } from './formulario-inscripcion/formula
 import { EtiListComponent } from './eti-list/eti-list.component';
 import { EtiComponent } from './eti/eti.component';
 import { LoginComponent } from './login/login.component';
+import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoginComponent } from './login/login.component';
     FormularioInscripcionComponent,
     EtiListComponent,
     EtiComponent,
-    LoginComponent
+    LoginComponent,
+    DetalleInscriptoComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,10 @@ import { LoginComponent } from './login/login.component';
       {
         path: 'eti/:id',
         component: EtiComponent
+      },
+      {
+        path: 'inscripcion/:id',
+        component: DetalleInscriptoComponent
       },
       {
         path: 'login',

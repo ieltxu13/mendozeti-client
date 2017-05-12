@@ -6,7 +6,7 @@ import * as _ from "lodash";
 @Injectable()
 export class EtiService {
 
-  private etiUrl = 'http://localhost:7000/api/eti';
+  private etiUrl = 'http://localhost:3000/api/eti';
   private currentEti;
   etis$ = new BehaviorSubject(null);
   eti$ = new BehaviorSubject(null);
@@ -39,17 +39,27 @@ export class EtiService {
     return this.etis$;
   }
 
-  getEti(id) {
+  getEti(_id) {
     if(this.etis.length) {
-      let etiFound = _.find(this.etis, { id });
+      let etiFound = _.find(this.etis, { _id });
       this.eti$.next(etiFound);
     } else {
-      const url = `${this.etiUrl}/${id}`;
+      const url = `${this.etiUrl}/${_id}`;
       this._http.get(url).map(res => res.json())
       .subscribe(eti => {
         this.eti$.next(eti);
       });
     }
     return this.eti$;
+  }
+
+  getInscripto(_id) {
+    return _.find(this.getActiveEti().inscripciones, { _id });
+  }
+
+  getActiveEti() {
+    if(this.etis.length) {
+      return _.find(this.etis, { 'estado': 'activo' });
+    }
   }
 }
