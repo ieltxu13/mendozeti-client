@@ -13,4 +13,6 @@
   <h3>Email:</h3><span> {{ inscripto.email }}</span>
   <h3>Telefono:</h3><span> {{ inscripto.telefono1 }}</span>
   <h3>Telefono 2:</h3><span> {{ inscripto.telefono2 || 'No' }}</span>
+
+  <button md-raised-button (click)="guardar()">Guardar</button>
 </md-card>
