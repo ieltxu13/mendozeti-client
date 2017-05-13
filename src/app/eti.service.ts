@@ -8,8 +8,8 @@ export class EtiService {
 
   private etiUrl = 'http://localhost:3000/api/eti';
   private currentEti;
-  etis$ = new BehaviorSubject(null);
-  eti$ = new BehaviorSubject(null);
+  etis$ = new BehaviorSubject([]);
+  eti$ = new BehaviorSubject({});
   etis = [];
 
 

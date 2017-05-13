@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
 
 import { EtiService } from '../eti.service';
 @Component({
@@ -10,13 +11,19 @@ import { EtiService } from '../eti.service';
 export class EtiComponent implements OnInit {
 
   eti: any;
+  inscriptos: number;
+  preInscriptos: number;
+  enEspera: number;
   constructor(private _route: ActivatedRoute, private _etiService: EtiService) { }
 
   ngOnInit() {
    this._route.params.subscribe(params => {
       this._etiService.getEti(params['id'])
-      .subscribe(eti => {
+      .subscribe((eti: {inscriptos}) => {
         this.eti = eti;
+        this.inscriptos  = _.filter(eti.inscriptos, {estado : 'Inscripto'}).length
+        this.preInscriptos  = _.filter(eti.inscriptos, {estado : 'Pre inscripto'}).length
+        this.enEspera = _.filter(eti.inscriptos, {estado : 'En lista de espera'}).length
       });
    });
  }
