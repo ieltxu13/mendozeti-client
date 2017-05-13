@@ -1,3 +1,21 @@
 .center-title {
   text-align: center;
 }
+
+
+.inscriptosTable {
+  border: 2px solid;
+  border-radius: 20px;
+}
+
+
+.inscriptosTable td {
+  border-style: ridge;
+}
+
+.inscriptosTable th {
+  font-weight: bold;
+  font-size: 19px;
+  border-style: groove;
+  border-radius: 21px;
+}
