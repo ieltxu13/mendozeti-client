@@ -1,13 +1,29 @@
-<h1>
-  {{ eti.nombre }}
-</h1>
+<br>
+<div fxColumn="row">
+  <div class="cardContainer"
+       fxFlex="80"
+       fxFlexOffset="10">
+    <md-card>
+      <md-card-title class="center-title">
+        {{ eti.nombre }}
+      </md-card-title>
+      <md-card-content>
+        <md-chip-list>
+          <span>Inscriptos: </span><md-chip color="primary" selected>{{ inscriptos || 0 }}</md-chip>
+          <span>Pre-Inscriptos: </span><md-chip color="secondary" selected>{{ preInscriptos || 0 }}</md-chip>
+          <span>En lista de espera: </span><md-chip color="warn" selected>{{ enEspera || 0 }}</md-chip>
+        </md-chip-list>
+        <h2>Listado de Inscriptos</h2>
+        <md-nav-list>
+          <md-list-item *ngFor="let inscripto of eti.inscripciones">
+            <a md-line [routerLink]="['/inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
+            <button md-icon-button>
+              <md-icon>create</md-icon>
+            </button>
+          </md-list-item>
+        </md-nav-list>
+      </md-card-content>
+    </md-card>
+  </div>
 
-<h1>Listado de Inscriptos</h1>
-<md-nav-list>
-  <md-list-item *ngFor="let inscripto of eti.inscripciones">
-     <a md-line [routerLink]="['/inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
-     <button md-icon-button>
-        <md-icon>create</md-icon>
-     </button>
-  </md-list-item>
-</md-nav-list>
+</div>
