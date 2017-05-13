@@ -14,14 +14,20 @@
           <span>En lista de espera: </span><md-chip color="warn" selected>{{ enEspera || 0 }}</md-chip>
         </md-chip-list>
         <h2>Listado de Inscriptos</h2>
-        <md-nav-list>
-          <md-list-item *ngFor="let inscripto of eti.inscripciones">
-            <a md-line [routerLink]="['/inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
-            <button md-icon-button>
-              <md-icon>create</md-icon>
-            </button>
-          </md-list-item>
-        </md-nav-list>
+        <table class="inscriptosTable">
+          <thead>
+            <th (click)="sortInscriptosBy('nombre')">Nombre</th><th (click)="sortInscriptosBy('estado')">Estado</th><th>Accion</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let inscripto of eti.inscripciones">
+              <td>{{inscripto.nombre}}</td>
+              <td>{{inscripto.estado}}</td>
+              <td><a md-line [routerLink]="['/inscripcion', inscripto._id]"><button md-icon-button>
+                <md-icon>create</md-icon>
+              </button></a></td>
+            </tr>
+          </tbody>
+        </table>
       </md-card-content>
     </md-card>
   </div>
