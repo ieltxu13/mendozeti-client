@@ -19,4 +19,16 @@ export class DetalleInscriptoComponent implements OnInit {
    });
  }
 
+ guardar() {
+   this._etiService.updateInscripto(this.inscripto)
+   .subscribe(
+     data => {
+       console.log(data)
+     },
+     error => {
+       console.log(error)
+     }
+   );
+ }
+
 }

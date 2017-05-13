@@ -62,4 +62,10 @@ export class EtiService {
       return _.find(this.etis, { 'estado': 'activo' });
     }
   }
+
+  updateInscripto(inscripto) {
+    let etiActivo = _.find(this.etis, {'estado': 'activo'});
+    const url = `${this.etiUrl}/${etiActivo._id}/inscripcion/${inscripto._id}`;
+    return this._http.put(url, inscripto);
+  }
 }
