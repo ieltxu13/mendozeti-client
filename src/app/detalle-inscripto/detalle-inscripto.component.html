@@ -1,18 +1,74 @@
-<md-card>
-  <md-card-title>{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
-
-  <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
-    <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
-    <md-option [value]="'En lista de espera'">En lista de espera</md-option>
-    <md-option [value]="'Inscripto'">Inscripto</md-option>
-  </md-select>
-
-  <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
-  <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
-  <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
-  <h3>Email:</h3><span> {{ inscripto.email }}</span>
-  <h3>Telefono:</h3><span> {{ inscripto.telefono1 }}</span>
-  <h3>Telefono 2:</h3><span> {{ inscripto.telefono2 || 'No' }}</span>
-
-  <button md-raised-button (click)="guardar()">Guardar</button>
-</md-card>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-around stretch">
+  <div fxFlex="80">
+    <md-card *ngIf="inscripto" class="inscripto-card">
+      <md-card-title class="center-title">{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
+      <md-card-content>
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <div fxFlex="34" class="detail-field">
+              <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
+            </div>
+            <div fxFlex="33" class="detail-field">
+              <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
+            </div>
+            <div fxFlex="33" class="detail-field">
+              <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
+            </div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="34" class="detail-field">
+              <h3>Email:</h3><span> {{ inscripto.email }}</span>
+            </div>
+            <div fxFlex="33" class="detail-field">
+              <h3>Telefono:</h3><span> {{ inscripto.telefono1 }}</span>
+            </div>
+            <div fxFlex="33" class="detail-field">
+              <h3>Telefono 2:</h3><span> {{ inscripto.telefono2 || 'No' }}</span>
+            </div>
+          </div>
+          <div fxLayout="row" *ngIf="auth.authenticated() && auth.user.admin">
+            <div fxFlex="50" class="detail-field">
+              <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
+                <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+                <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+                <md-option [value]="'Inscripto'">Inscripto</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" class="detail-field">
+              <div fxLayout="row">
+                <button md-raised-button (click)="guardar()">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-around stretch">
+  <div fxFlex="80">
+    <md-card *ngIf="inscripto" class="inscripto-card">
+      <md-card-title class="center-title">Comprobante</md-card-title>
+      <md-card-content>
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <div fxFlex="50">
+                <h3 for="combrobante">Selecciona Un Archivo</h3>
+                <input id="comprobante" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+              <button md-button color="accent" (click)="startUpload()">
+                <md-icon>cloud_upload</md-icon>
+              </button>
+            </div>
+            <div fxFlex="50">
+              <a md-button color="primary" [href]="'http://localhost:3000/resources?file=' + inscripto.comprobante" target="_blank">
+                ver comprobante
+                <md-icon>visibility</md-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

@@ -13,10 +13,75 @@
           <span>Pre-Inscriptos: </span><md-chip color="secondary" selected>{{ preInscriptos || 0 }}</md-chip>
           <span>En lista de espera: </span><md-chip color="warn" selected>{{ enEspera || 0 }}</md-chip>
         </md-chip-list>
+
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+<div fxColumn="row">
+  <div class="cardContainer"
+       fxFlex="80"
+       fxFlexOffset="10">
+    <md-card>
+      <md-card-title class="center-title">
+        <h2>Listado de Inscriptos</h2>
+      </md-card-title>
+      <md-card-content>
+        <md-input-container>
+          <input mdInput type="text" #filtro id="filtro" placeholder="Buscar" class="form-control" required name="filtro">
+        </md-input-container>
+        <div fxLayout="row">
+          <div fxFlex>
+            <h2>Nombre</h2>
+          </div>
+          <div fxFlex>
+            <h2>Estado</h2>
+          </div>
+          <div fxFlex>
+            <h2>Fecha Inscripcion</h2>
+          </div>
+          <div fxFlex="10">
+
+          </div>
+        </div>
+        <div fxLayout="row" *ngFor="let inscripto of eti.inscripciones | etiList: filtro.value">
+          <div fxFlex>
+            <h2>{{inscripto.nombre}} {{inscripto.apellido}}</h2>
+          </div>
+          <div fxFlex>
+            <h2>{{inscripto.estado}}</h2>
+          </div>
+          <div fxFlex>
+            <h2>{{inscripto.fechaInscripcion}}</h2>
+          </div>
+          <div fxFlex="10">
+            <a  *ngIf="puedeEditar(inscripto)" [routerLink]="['inscripcion', inscripto._id]"><md-icon>create</md-icon></a>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+
+<!-- <br>
+<div fxLayout="row">
+  <div class="cardContainer"
+       fxFlex="80"
+       fxFlexOffset="10">
+    <md-card>
+      <md-card-title class="center-title">
+        {{ eti.nombre }}
+      </md-card-title>
+      <md-card-content>
+        <md-chip-list>
+          <span>Inscriptos: </span><md-chip color="primary" selected>{{ inscriptos || 0 }}</md-chip>
+          <span>Pre-Inscriptos: </span><md-chip color="secondary" selected>{{ preInscriptos || 0 }}</md-chip>
+          <span>En lista de espera: </span><md-chip color="warn" selected>{{ enEspera || 0 }}</md-chip>
+        </md-chip-list>
         <h2>Listado de Inscriptos</h2>
         <md-nav-list>
           <md-list-item *ngFor="let inscripto of eti.inscripciones">
-            <a md-line [routerLink]="['/inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
+            <a md-line [routerLink]="['inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
             <button md-icon-button>
               <md-icon>create</md-icon>
             </button>
@@ -26,4 +91,4 @@
     </md-card>
   </div>
 
-</div>
+</div> -->

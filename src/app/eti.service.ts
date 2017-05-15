@@ -53,10 +53,6 @@ export class EtiService {
     return this.eti$;
   }
 
-  getInscripto(_id) {
-    return _.find(this.getActiveEti().inscripciones, { _id });
-  }
-
   getActiveEti() {
     if(this.etis.length) {
       return _.find(this.etis, { 'estado': 'activo' });

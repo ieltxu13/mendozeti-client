@@ -1,4 +1,4 @@
-<div *ngIf="auth.authenticated()">
+<div *ngIf="auth.authenticated() && auth.user && auth.user.admin">
   <app-navbar></app-navbar>
 </div>
  <router-outlet></router-outlet>
