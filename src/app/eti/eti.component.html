@@ -1,5 +1,5 @@
 <br>
-<div fxColumn="row">
+<div fxLayout="row">
   <div class="cardContainer"
        fxFlex="80"
        fxFlexOffset="10">
@@ -16,7 +16,7 @@
         <h2>Listado de Inscriptos</h2>
         <md-nav-list>
           <md-list-item *ngFor="let inscripto of eti.inscripciones">
-            <a md-line [routerLink]="['/inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
+            <a md-line [routerLink]="['inscripcion', inscripto._id]"> {{ inscripto.nombre }}     -     {{inscripto.estado}}</a>
             <button md-icon-button>
               <md-icon>create</md-icon>
             </button>

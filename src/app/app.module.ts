@@ -6,12 +6,15 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgUploaderModule } from 'ngx-uploader';
+
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EtiService } from './eti.service';
 import { AuthService } from './auth.service';
+import { AdminGuard } from './app.admin-guard.service';
 import { FormularioInscripcionComponent } from './formulario-inscripcion/formulario-inscripcion.component';
 import { EtiListComponent } from './eti-list/eti-list.component';
 import { EtiComponent } from './eti/eti.component';
@@ -35,6 +38,7 @@ import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
+    NgUploaderModule,
     RouterModule.forRoot([
       {
         path: 'inscripcion',
@@ -42,14 +46,15 @@ import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto
       },
       {
         path: 'etis',
+        canActivate: [AdminGuard],
         component: EtiListComponent
       },
       {
         path: 'eti/:id',
-        component: EtiComponent
+        component: EtiComponent,
       },
       {
-        path: 'inscripcion/:id',
+        path: 'eti/:etiId/inscripcion/:inscripcionId',
         component: DetalleInscriptoComponent
       },
       {
@@ -57,7 +62,7 @@ import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto
         component: LoginComponent
       }
   ])],
-  providers: [EtiService, AuthService],
+  providers: [EtiService, AuthService, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,11 +19,11 @@ export class EtiComponent implements OnInit {
   ngOnInit() {
    this._route.params.subscribe(params => {
       this._etiService.getEti(params['id'])
-      .subscribe((eti: {inscriptos}) => {
+      .subscribe((eti: {inscripciones}) => {
         this.eti = eti;
-        this.inscriptos  = _.filter(eti.inscriptos, {estado : 'Inscripto'}).length
-        this.preInscriptos  = _.filter(eti.inscriptos, {estado : 'Pre inscripto'}).length
-        this.enEspera = _.filter(eti.inscriptos, {estado : 'En lista de espera'}).length
+        this.inscriptos  = _.filter(eti.inscripciones, {estado : 'Inscripto'}).length
+        this.preInscriptos  = _.filter(eti.inscripciones, {estado : 'Pre inscripto'}).length
+        this.enEspera = _.filter(eti.inscripciones, {estado : 'En lista de espera'}).length
       });
    });
  }
