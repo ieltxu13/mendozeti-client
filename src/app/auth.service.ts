@@ -9,7 +9,10 @@ export class AuthService {
 
   public user: any;
   constructor(private _http: Http) {
-
+    var token = localStorage.getItem('id_token');
+    if(token) {
+      this.user = this.jwtHelper.decodeToken(token);
+    }
   }
 
   login(usuario) {

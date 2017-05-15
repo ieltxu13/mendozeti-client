@@ -27,7 +27,7 @@
               <h3>Telefono 2:</h3><span> {{ inscripto.telefono2 || 'No' }}</span>
             </div>
           </div>
-          <div fxLayout="row">
+          <div fxLayout="row" *ngIf="auth.authenticated() && auth.user.admin">
             <div fxFlex="50" class="detail-field">
               <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
                 <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>

@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { EtiService } from '../eti.service';
+import { AuthService } from '../auth.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes } from 'ngx-uploader';
 import * as _ from 'lodash';
 
@@ -19,7 +20,7 @@ export class DetalleInscriptoComponent implements OnInit {
   dragOver: boolean;
   inscripto: any = null;
   eti: any;
-  constructor(private _route: ActivatedRoute, private _router: Router, private _etiService: EtiService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _etiService: EtiService, private auth: AuthService) {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
