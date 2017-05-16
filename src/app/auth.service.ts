@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
@@ -8,7 +9,7 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
 
   public user: any;
-  constructor(private _http: Http) {
+  constructor(private _http: Http, private _router: Router) {
     var token = localStorage.getItem('id_token');
     if(token) {
       this.user = this.jwtHelper.decodeToken(token);
@@ -47,5 +48,7 @@ export class AuthService {
   logout() {
     // Remove token from localStorage
     localStorage.removeItem('id_token');
+    this._router.navigate(['/login']);
+
   }
 }

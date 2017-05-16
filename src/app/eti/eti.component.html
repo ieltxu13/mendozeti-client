@@ -1,5 +1,5 @@
 <br>
-<div fxColumn="row">
+<div fxColumn="row" *ngIf="eti">
   <div class="cardContainer"
        fxFlex="80"
        fxFlexOffset="10">
@@ -27,9 +27,29 @@
         <h2>Listado de Inscriptos</h2>
       </md-card-title>
       <md-card-content>
-        <md-input-container>
-          <input mdInput type="text" #filtro id="filtro" placeholder="Buscar" class="form-control" required name="filtro">
-        </md-input-container>
+        <div fxLayout="row">
+          <div fxFlex>
+            <md-input-container>
+              <input mdInput type="text" #filtro id="filtro" placeholder="Buscar" class="form-control" required name="filtro">
+            </md-input-container>
+          </div>
+          <div fxFlex>
+            <md-select placeholder="Estado" [(ngModel)]="filtroEstado">
+              <md-option [value]="'Todos'">Todos</md-option>
+              <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+              <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+              <md-option [value]="'Inscripto'">Inscripto</md-option>
+            </md-select>
+          </div>
+          <div fxFlex>
+          </div>
+          <div fxFlex>
+          </div>
+          <div fxFlex="10">
+
+          </div>
+        </div>
+
         <div fxLayout="row">
           <div fxFlex>
             <h2>Nombre</h2>
@@ -40,22 +60,30 @@
           <div fxFlex>
             <h2>Fecha Inscripcion</h2>
           </div>
+          <div fxFlex>
+            <h2>Fecha Vencimiento</h2>
+          </div>
           <div fxFlex="10">
 
           </div>
         </div>
-        <div fxLayout="row" *ngFor="let inscripto of eti.inscripciones | etiList: filtro.value">
-          <div fxFlex>
-            <h2>{{inscripto.nombre}} {{inscripto.apellido}}</h2>
-          </div>
-          <div fxFlex>
-            <h2>{{inscripto.estado}}</h2>
-          </div>
-          <div fxFlex>
-            <h2>{{inscripto.fechaInscripcion}}</h2>
-          </div>
-          <div fxFlex="10">
-            <a  *ngIf="puedeEditar(inscripto)" [routerLink]="['inscripcion', inscripto._id]"><md-icon>create</md-icon></a>
+        <div *ngIf="eti">
+          <div fxLayout="row" *ngFor="let inscripto of eti.inscripciones">
+            <div fxFlex>
+              <h3>{{inscripto.nombre}} {{inscripto.apellido}}</h3>
+            </div>
+            <div fxFlex>
+              <h3>{{inscripto.estado}}</h3>
+            </div>
+            <div fxFlex>
+              <h3>{{inscripto.fechaInscripcionParsed}}</h3>
+            </div>
+            <div fxFlex>
+              <h3>{{inscripto.fechaVencimiento}}</h3>
+            </div>
+            <div fxFlex="10">
+              <a *ngIf="puedeEditar(inscripto)" [routerLink]="['inscripcion', inscripto._id]"><md-icon>create</md-icon></a>
+            </div>
           </div>
         </div>
       </md-card-content>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { EtiService } from '../eti.service';
 @Component({
@@ -6,16 +6,21 @@ import { EtiService } from '../eti.service';
   templateUrl: './eti-list.component.html',
   styleUrls: ['./eti-list.component.css']
 })
-export class EtiListComponent implements OnInit {
+export class EtiListComponent implements OnInit, OnDestroy {
 
   etis = [];
+  etisSub: any;
   constructor(private _etiService: EtiService) { }
 
   ngOnInit() {
-    this._etiService.getEtis()
+    this.etisSub = this._etiService.getEtis()
     .subscribe(etis => {
       this.etis = etis;
     })
+  }
+
+  ngOnDestroy() {
+    this.etisSub.unsubscribe();
   }
 
 }

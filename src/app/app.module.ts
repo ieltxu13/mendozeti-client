@@ -21,6 +21,7 @@ import { EtiComponent } from './eti/eti.component';
 import { LoginComponent } from './login/login.component';
 import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto.component';
 import { EtiListPipe } from './eti-list.pipe';
+import { FiltroEstadoPipe } from './filtro-estado.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { EtiListPipe } from './eti-list.pipe';
     EtiComponent,
     LoginComponent,
     DetalleInscriptoComponent,
-    EtiListPipe
+    EtiListPipe,
+    FiltroEstadoPipe
   ],
   imports: [
     BrowserModule,
