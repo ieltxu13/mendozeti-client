@@ -1,4 +1,4 @@
-<div fxLayout='column'>
+<div fxLayout='column' *ngIf="formularioHabilitado">
   <form #inscripcionForm="ngForm" action="index.html" method="post">
     <div fxLayout='row'>
       <div fxFlex="33">
@@ -17,7 +17,7 @@
         </md-input-container>
       </div>
     </div>
-    <div f1xLayout='row'>
+    <div fxLayout='row'>
       <div fxFlex="33">
         <md-input-container>
           <input mdInput type="text" id="pais" placeholder="Pais" class="form-control" required name="pais" [(ngModel)]="inscripto.pais">
@@ -34,7 +34,7 @@
           </md-input-container>
       </div>
     </div>
-    <div f1xLayout='row'>
+    <div fxLayout='row'>
       <div fxFlex="33">
         <md-input-container>
           <input mdInput type="email" id="email" placeholder="Email" class="form-control" required name="email" [(ngModel)]="inscripto.email">
@@ -51,7 +51,7 @@
         </md-input-container>
       </div>
     </div>
-    <div f1xLayout='row'>
+    <div fxLayout='row'>
       <div fxFlex="33">
         <md-input-container>
           <input mdInput type="text" id="tipoComida" placeholder="Preferencia de comida" class="form-control" required name="tipoComida" [(ngModel)]="inscripto.tipoComida">
@@ -66,7 +66,7 @@
         </md-input-container>
       </div>
     </div>
-    <div f1xLayout='row'>
+    <div fxLayout='row'>
       <div fxFlex="33">
         <md-input-container>
           <input mdInput type="text" id="fechaSalida" placeholder="Fecha de salida" class="form-control" required name="fechaSalida" [(ngModel)]="inscripto.fechaSalida">
@@ -76,10 +76,23 @@
         <md-checkbox>Primer Eti?</md-checkbox>
       </div>
     </div>
-    <div f1xLayout='row'>
+    <div fxLayout='row'>
       <div fxFlex="33">
         <button [disabled]="!inscripcionForm.valid" md-raised-button (click)="inscribir()">Inscribir</button>
       </div>
     </div>
   </form>
+</div>
+
+<div fxLayout="column" *ngIf="mensaje">
+  <div fxFlex="100">
+    <h2>{{mensaje}}</h2>
+  </div>
+  <div fxFlex="100">
+    <a  md-button *ngIf="estado == 'enviado'" [routerLink]="['/eti', etiActivo._id]">Ir al listado de inscriptos</a>
+    <br>
+  </div>
+  <div fxFlex="100">
+    <button *ngIf="estado == 'enviado'" (click)="resetearFormulario()" md-button  name="button">Realizar otra inscripción</button>
+  </div>
 </div>

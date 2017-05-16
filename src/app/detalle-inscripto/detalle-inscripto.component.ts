@@ -20,6 +20,7 @@ export class DetalleInscriptoComponent implements OnInit {
   dragOver: boolean;
   inscripto: any = null;
   eti: any;
+  mensaje: any = false;
   constructor(private _route: ActivatedRoute, private _router: Router, private _etiService: EtiService, private auth: AuthService) {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
@@ -43,7 +44,8 @@ export class DetalleInscriptoComponent implements OnInit {
    this._etiService.updateInscripto(this.inscripto)
    .subscribe(
      data => {
-       console.log(data)
+       this.mensaje = "Cambios Guardados";
+       this._router.navigate(['/eti', this.eti._id]);
      },
      error => {
        console.log(error)

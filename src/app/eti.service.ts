@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import * as _ from "lodash";
 
 @Injectable()
@@ -25,7 +25,7 @@ export class EtiService {
     console.log(error)
   }
 
-  getEtis(noCache: Boolean = false) {
+  getEtis(noCache: Boolean = false): Observable<any> {
     if(this.etis.length && !noCache) {
       this.etis$.next(this.etis);
     } else {
@@ -44,9 +44,9 @@ export class EtiService {
       let etiFound = _.find(this.etis, { _id });
       this.eti$.next(etiFound);
     } else {
-      const url = `${this.etiUrl}/${_id}`;
-      this._http.get(url).map(res => res.json())
-      .subscribe(eti => {
+      this.getEtis()
+      .subscribe((etis: {inscripciones}) => {
+        let eti = _.find(etis, {_id})
         this.eti$.next(eti);
       });
     }

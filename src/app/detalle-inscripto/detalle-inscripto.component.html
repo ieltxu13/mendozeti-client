@@ -1,6 +1,9 @@
 <br>
 <div fxLayout="row" fxLayoutAlign="space-around stretch">
   <div fxFlex="80">
+    <div *ngIf="mensaje" class="mensaje">
+      {{mensaje}}
+    </div>
     <md-card *ngIf="inscripto" class="inscripto-card">
       <md-card-title class="center-title">{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
       <md-card-content>
