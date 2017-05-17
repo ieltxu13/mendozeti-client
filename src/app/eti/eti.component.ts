@@ -45,7 +45,7 @@ export class EtiComponent implements OnInit, OnDestroy {
  }
 
   puedeEditar(inscripto) {
-    return this.auth.authenticated() && this.auth.user.admin || inscripto._id == this.auth.user.inscripcionId;
+    return this.auth.authenticated() && (this.auth.user.admin || inscripto._id == this.auth.user.inscripcionId);
   }
 
   parsearFecha(fecha) {

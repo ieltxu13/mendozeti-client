@@ -5,8 +5,8 @@ import { AuthService } from '../auth.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes } from 'ngx-uploader';
 import * as _ from 'lodash';
 
-//const URL = 'http://localhost:3000/api/upload';
-const URL = 'http://inscripcioneseti.com/api/upload';
+const URL = 'http://localhost:3000/api/upload';
+//const URL = 'http://inscripcioneseti.com/api/upload';
 
 @Component({
   selector: 'app-detalle-inscripto',

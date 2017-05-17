@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     this._auth.login(this.usuario)
     .subscribe(() => {
       let user = this._auth.getUser();
-      if(user.admin) {
+      if(user.admin || !user) {
         this._router.navigate(['/eti', user.eti])
       } else {
         this._router.navigate(['/eti', user.eti, 'inscripcion', user.inscripcionId])
