@@ -68,7 +68,7 @@
           </div>
         </div>
         <div *ngIf="eti">
-          <div fxLayout="row" *ngFor="let inscripto of eti.inscripciones">
+          <div fxLayout="row" *ngFor="let inscripto of eti.inscripciones | etiList: filtro.value | filtroEstado: filtroEstado">
             <div fxFlex>
               <h3>{{inscripto.nombre}} {{inscripto.apellido}}</h3>
             </div>
