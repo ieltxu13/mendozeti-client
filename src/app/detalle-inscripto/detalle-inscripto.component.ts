@@ -69,8 +69,6 @@ export class DetalleInscriptoComponent implements OnInit {
  }
 
  onUploadOutput(output: UploadOutput): void {
-    console.log(output); // lets output to see what's going on in the console
-
     if (output.type === 'allAddedToQueue') { // when all files added in queue
     } else if (output.type === 'addedToQueue') {
       this.files.push(output.file); // add file to array when added
