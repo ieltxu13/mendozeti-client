@@ -18,6 +18,22 @@
     </md-card>
   </div>
 </div>
+<div fxColumn="row" *ngIf="eti && auth.authenticated() && auth.user.admin">
+  <div class="cardContainer"
+       fxFlex="80"
+       fxFlexOffset="10">
+    <md-card>
+      <div fxFlex>
+        <a md-button color="primary" [routerLink]="['/comprobantes', eti._id]">Listado de comprobantes</a>
+      </div>
+      <div fxFlex>
+        <a md-button color="primary" [routerLink]="['/comprobantes', eti._id, 'nuevo-comprobante']">Nuevo Comprobante</a>
+      </div>
+      <br>
+    </md-card>
+  </div>
+</div>
+<!-- TABLA -->
 <div fxColumn="row">
   <div class="cardContainer"
        fxFlex="80"
@@ -58,7 +74,7 @@
             <h2>Estado</h2>
           </div>
           <div fxFlex>
-            <h2>Fecha Inscripcion</h2>
+            <h2>Fecha Pre-Inscripcion</h2>
           </div>
           <div fxFlex>
             <h2>Fecha Vencimiento</h2>
@@ -76,7 +92,7 @@
               <h3>{{inscripto.estado}}</h3>
             </div>
             <div fxFlex>
-              <h3>{{inscripto.fechaInscripcionParsed}}</h3>
+              <h3>{{inscripto.fechaPreInscripcionParsed}}</h3>
             </div>
             <div fxFlex>
               <h3>{{inscripto.fechaVencimiento}}</h3>

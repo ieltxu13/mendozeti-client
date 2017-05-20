@@ -36,11 +36,24 @@
                 <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
                 <md-option [value]="'En lista de espera'">En lista de espera</md-option>
                 <md-option [value]="'Inscripto'">Inscripto</md-option>
+                <md-option [value]="'Vencido'">Vencido</md-option>
               </md-select>
             </div>
             <div fxFlex="50" class="detail-field">
               <div fxLayout="row">
                 <button md-raised-button (click)="guardar()">Guardar</button>
+              </div>
+            </div>
+            <div fxFlex="50">
+              <md-input-container>
+                <input mdInput type="text" #busquedaReferencia placeholder="Referencia del comprobante" class="form-control" >
+              </md-input-container>
+              <button md-button color="primary" type="button" name="button" (click)="buscarComprobante(busquedaReferencia.value)">Buscar Comprobante</button>
+            </div>
+            <div fxFlex="50">
+              <div *ngIf="comprobanteEncontrado">
+                Monto: {{ comprobanteEncontrado.total }}
+                <button md-button color="primary" type="button" name="button" (click)="asociarComprobante()">Asociar Comprobante</button>
               </div>
             </div>
           </div>

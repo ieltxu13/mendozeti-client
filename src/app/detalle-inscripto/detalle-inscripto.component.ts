@@ -1,12 +1,13 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { EtiService } from '../eti.service';
+import { ComprobanteService } from '../comprobante.service';
 import { AuthService } from '../auth.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes } from 'ngx-uploader';
 import * as _ from 'lodash';
 
-//const URL = 'http://localhost:3000/api/upload';
-const URL = 'http://inscripcioneseti.com/api/upload';
+const URL = 'http://localhost:3000/api/upload';
+//const URL = 'http://inscripcioneseti.com/api/upload';
 
 @Component({
   selector: 'app-detalle-inscripto',
@@ -21,8 +22,13 @@ export class DetalleInscriptoComponent implements OnInit {
   dragOver: boolean;
   inscripto: any = null;
   eti: any;
+  comprobantes = [];
   mensaje: any = false;
-  constructor(private _route: ActivatedRoute, private _router: Router, private _etiService: EtiService, private auth: AuthService) {
+  comprobanteEncontrado: any;
+  constructor(private _route: ActivatedRoute, private _router: Router,
+    private _etiService: EtiService,
+    private _comprobanteService: ComprobanteService,
+    private auth: AuthService) {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
@@ -32,12 +38,20 @@ export class DetalleInscriptoComponent implements OnInit {
   ngOnInit() {
    this._route.params.subscribe((params: Params) => {
      this._etiService.getEti(params['etiId']).subscribe(
-       (eti: {inscripciones}) => {
+       (eti: {inscripciones, _id}) => {
          this.eti = eti;
-         if(eti)
-          this.inscripto =_.find(eti.inscripciones, { '_id': params['inscripcionId']});
+         if(eti) {
+           this.inscripto =_.find(eti.inscripciones, { '_id': params['inscripcionId']});
+           this._comprobanteService.getComprobantes(eti._id).subscribe(
+             comprobantes => {
+               this.comprobantes = comprobantes
+             },
+             error => console.log(error)
+           );
+         }
        }
      );
+
    });
  }
 
@@ -58,15 +72,6 @@ export class DetalleInscriptoComponent implements OnInit {
     console.log(output); // lets output to see what's going on in the console
 
     if (output.type === 'allAddedToQueue') { // when all files added in queue
-      // uncomment this if you want to auto upload files when added
-      // const event: UploadInput = {
-      //   type: 'uploadAll',
-      //   url: '/upload',
-      //   method: 'POST',
-      //   data: { foo: 'bar' },
-      //   concurrency: 0
-      // };
-      // this.uploadInput.emit(event);
     } else if (output.type === 'addedToQueue') {
       this.files.push(output.file); // add file to array when added
     } else if (output.type === 'uploading') {
@@ -98,6 +103,15 @@ export class DetalleInscriptoComponent implements OnInit {
 
   cancelUpload(id: string): void {
     this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  buscarComprobante(referencia) {
+    this.comprobanteEncontrado = _.find(this.comprobantes, {referencia});
+  }
+
+  asociarComprobante() {
+    this.inscripto.referenciaComprobante = this.comprobanteEncontrado.referencia;
+    this.guardar();
   }
 
 }

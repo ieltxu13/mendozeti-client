@@ -13,6 +13,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EtiService } from './eti.service';
+import { ComprobanteService } from './comprobante.service';
 import { AuthService } from './auth.service';
 import { AdminGuard } from './app.admin-guard.service';
 import { FormularioInscripcionComponent } from './formulario-inscripcion/formulario-inscripcion.component';
@@ -22,6 +23,9 @@ import { LoginComponent } from './login/login.component';
 import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto.component';
 import { EtiListPipe } from './eti-list.pipe';
 import { FiltroEstadoPipe } from './filtro-estado.pipe';
+import { ComprobantesComponent } from './comprobantes/comprobantes.component';
+import { NuevoComprobanteComponent } from './nuevo-comprobante/nuevo-comprobante.component';
+import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,10 @@ import { FiltroEstadoPipe } from './filtro-estado.pipe';
     LoginComponent,
     DetalleInscriptoComponent,
     EtiListPipe,
-    FiltroEstadoPipe
+    FiltroEstadoPipe,
+    ComprobantesComponent,
+    NuevoComprobanteComponent,
+    FiltroComprobantePipe
   ],
   imports: [
     BrowserModule,
@@ -64,9 +71,17 @@ import { FiltroEstadoPipe } from './filtro-estado.pipe';
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'comprobantes/:etiId',
+        component: ComprobantesComponent
+      },
+      {
+        path: 'comprobantes/:etiId/nuevo-comprobante',
+        component: NuevoComprobanteComponent
       }
   ])],
-  providers: [EtiService, AuthService, AdminGuard],
+  providers: [EtiService, ComprobanteService, AuthService, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
