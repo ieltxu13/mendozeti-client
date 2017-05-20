@@ -78,6 +78,9 @@
                   <md-option *ngFor="let diaLlegada of diasLlegada" [value]="diaLlegada.value">{{ diaLlegada.value }}</md-option>
                 </md-select>
               </div>
+              <div fxFlex="33" *ngIf="mostrarAlojamiento">
+                <md-checkbox name="alojamiento" [(ngModel)]="inscripto.alojamiento">Te alojás en Albergue Parque ($500 x tres noches/ cupo 400 plazas)</md-checkbox>
+              </div>
             </div>
             <div fxLayout='row' class="detail-field">
               <div fxFlex="33">
@@ -87,6 +90,17 @@
               </div>
               <div fxFlex="33">
                 <md-checkbox name="primerEti" [(ngModel)]="inscripto.primerEti">Primer Eti?</md-checkbox>
+              </div>
+              <div fxFlex="33">
+                <md-checkbox name="seminario" [hidden]="seminariosTotal.length >= 200" [(ngModel)]="inscripto.seminario">Tomás el seminario de Olga Besio?</md-checkbox>
+                <div [hidden]="!inscripto.seminario">
+                  Que horario preferís?
+                  <md-radio-group name="horaSeminario" [(ngModel)]="inscripto.turnoSeminario" required>
+                    <md-radio-button [hidden]="seminariosManiana.length >= 100" value="primero">11</md-radio-button>
+                    <md-radio-button [hidden]="seminariosTarde.length >= 100" value="segundo">18</md-radio-button>
+                    <md-radio-button value="cualquiera">cualquiera</md-radio-button>
+                  </md-radio-group>
+                </div>
               </div>
             </div>
             <div fxLayout='row' class="detail-field">

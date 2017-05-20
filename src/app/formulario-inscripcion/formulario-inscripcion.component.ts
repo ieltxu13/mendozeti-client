@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EtiService } from '../eti.service';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-formulario-inscripcion',
   templateUrl: './formulario-inscripcion.component.html',
@@ -8,12 +8,18 @@ import { EtiService } from '../eti.service';
 })
 export class FormularioInscripcionComponent implements OnInit, OnDestroy {
 
-  inscripto: any = {};
+  inscripto: any = {
+    turnoSeminario: "cualquiera"
+  };
   etiActivo = null;
   mensaje: string;
   formularioHabilitado = false;
+  mostrarAlojamiento = false;
   estado: string = "sin enviar";
   etisSub: any;
+  seminariosTotal: any[];
+  seminariosManiana: any[];
+  seminariosTarde: any[];
   paises = [{
     id: 1,
     name: 'Argentina',
@@ -85,9 +91,25 @@ export class FormularioInscripcionComponent implements OnInit, OnDestroy {
         this.estado = "error";
         this.mensaje = "Las inscripciones no se encuentran habilitadas";
       } else {
-        this.formularioHabilitado = true;
-        this.mensaje = null;
-        this.estado = "sin enviar";
+        if(this.etiActivo) {
+          this.formularioHabilitado = true;
+          this.mensaje = null;
+          this.estado = "sin enviar";
+          let inscriptosConAlojamiento = _.filter(this.etiActivo.inscripciones, (i:any) => {
+            i.estado !== 'Vencido' && i.alojamiento;
+          }).length;
+          this.seminariosTotal = _.filter(this.etiActivo.inscripciones, (i: any) => {
+            return i.estado != 'Vencido' && i.seminario;
+          });
+          this.seminariosManiana = _.filter(this.seminariosTotal, (i: any) => {
+            return i.estado != 'Vencido' && i.turnoSeminario == 'primero';
+          });
+          this.seminariosTarde = _.filter(this.etiActivo.inscripciones, (i: any) => {
+            return i.estado != 'Vencido' && i.seminario == 'segundo';
+          });
+
+          this.mostrarAlojamiento = inscriptosConAlojamiento < 400;
+        }
       }
     },
     error => {

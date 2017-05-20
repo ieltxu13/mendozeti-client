@@ -9,7 +9,16 @@ export class FiltroEstadoPipe implements PipeTransform {
     searchTerm = searchTerm.toUpperCase();
       if(!data) return [];
       return data.filter(item => {
-        return item.estado.toUpperCase() === searchTerm || searchTerm == 'TODOS' || searchTerm == '';
+        switch(searchTerm) {
+          case 'TODOS':
+            return true;
+          case '':
+            return true;
+          case 'POR APROBAR':
+            return item.estado == 'Pre inscripto' && item.comprobante;
+          default:
+            return item.estad == searchTerm;
+        }
       });
   }
 

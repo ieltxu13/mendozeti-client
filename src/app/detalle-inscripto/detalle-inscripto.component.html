@@ -68,20 +68,26 @@
       <md-card-title class="center-title">Comprobante</md-card-title>
       <md-card-content>
         <div fxLayout="column">
-          <div fxLayout="row">
+          <div fxLayout="row" *ngIf="!inscripto.comprobante">
             <div fxFlex="50">
                 <h3 for="combrobante">Selecciona Un Archivo</h3>
                 <input id="comprobante" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
               <button md-button color="accent" (click)="startUpload()">
-                <md-icon>cloud_upload</md-icon>
+                Click aquí para subir<md-icon>cloud_upload</md-icon>
               </button>
             </div>
+          </div>
+          <div fxLayout="row" *ngIf="inscripto.comprobante">
             <div fxFlex="50">
-              <a md-button color="primary" [href]="'http://localhost:3000/resources?file=' + inscripto.comprobante" target="_blank">
-                ver comprobante
-                <md-icon>visibility</md-icon>
-              </a>
+              <h2>Tu comprobante ya está subido</h2>
             </div>
+          </div>
+          <div fxFlex="50" *ngIf="auth.authenticated() && auth.user.admin">
+            <a md-button color="primary" [href]="'http://inscripcioneseti.com/resources?file=' + inscripto.comprobante" target="_blank">
+            <!-- <a md-button color="primary" [href]="'http://localhost:3000/resources?file=' + inscripto.comprobante" target="_blank"> -->
+              ver comprobante
+              <md-icon>visibility</md-icon>
+            </a>
           </div>
         </div>
       </md-card-content>
