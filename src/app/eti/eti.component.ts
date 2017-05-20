@@ -20,10 +20,10 @@ export class EtiComponent implements OnInit, OnDestroy {
   filtroEstado: string = '';
   etiSub: any;
 
-  constructor(private _route: ActivatedRoute, private _etiService: EtiService, private auth: AuthService) { }
+  constructor(private _route: ActivatedRoute, private _etiService: EtiService, public auth: AuthService) { }
 
   ngOnInit() {
-    this.etiSub = this._etiService.getEti(this._route.snapshot.params['id'])
+    this.etiSub = this._etiService.getEti(this._route.snapshot.params['id'], true)
     .subscribe((eti: {inscripciones: { fechaInscripcion, fechaInscripcionParsed, fechaVencimiento }}) => {
       this.eti = eti;
       if(eti) {
@@ -31,13 +31,13 @@ export class EtiComponent implements OnInit, OnDestroy {
         this.preInscriptos  = _.filter(eti.inscripciones, {estado : 'Pre inscripto'}).length;
         this.enEspera = _.filter(eti.inscripciones, {estado : 'En lista de espera'}).length;
         _.map(eti.inscripciones, (inscripto) => {
-          let fecha = new Date(inscripto.fechaInscripcion)
-          if(!inscripto.fechaInscripcionParsed) {
-            inscripto.fechaInscripcionParsed = this.parsearFecha(fecha);
+          let fecha = new Date(inscripto.fechaPreInscripcion)
+          if(!inscripto.fechaPreInscripcionParsed) {
+            inscripto.fechaPreInscripcionParsed = this.parsearFecha(fecha);
           }
           if(!inscripto.fechaVencimiento) {
             let fechaVencimiento = this.contarDiasHabiles(fecha, 7);
-            inscripto.fechaVencimiento = this.parsearFecha(fecha);
+            inscripto.fechaVencimiento = this.parsearFecha(fechaVencimiento);
           }
         });
       }

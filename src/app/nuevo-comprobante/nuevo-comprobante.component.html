@@ -1,0 +1,57 @@
+<br>
+<div fxColumn="row" *ngIf="eti">
+  <div fxFlex="80" fxFlexOffset="10">
+    <md-card>
+      <md-card-title class="center-title">
+        Nuevo Comprobante
+      </md-card-title>
+      <md-card-content>
+        <div fxLayout='column'>
+          <form #comprobanteForm="ngForm" action="index.html" method="post">
+            <div fxLayout='row'>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="referencia" placeholder="Referencia" class="form-control" required name="referencia" [(ngModel)]="comprobante.referencia">
+                </md-input-container>
+              </div>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="number" id="total" placeholder="Monto total" class="form-control" required name="total" [(ngModel)]="comprobante.total">
+                </md-input-container>
+              </div>
+              <div fxFlex="34">
+                <md-input-container>
+                  <input mdInput type="number" id="combos" placeholder="Combos" class="form-control" name="combos" [(ngModel)]="comprobante.combos">
+                </md-input-container>
+              </div>
+            </div>
+            <div fxLayout='row'>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="number" id="alojamientos" placeholder="Alojamientos" class="form-control" name="alojamientos" [(ngModel)]="comprobante.alojamientos">
+                </md-input-container>
+              </div>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="seminarios" placeholder="Seminarios" class="form-control" name="seminarios" [(ngModel)]="comprobante.seminarios">
+                </md-input-container>
+              </div>
+              <div fxFlex="34">
+                Sobrante: {{ comprobante.total - comprobante.combos * eti.precioCombo - comprobante.alojamientos * eti.precioAlojamiento - comprobante.seminarios * eti.precioSeminario }}
+              </div>
+            </div>
+            <div fxLayout='row'>
+              <div fxFlex="33">
+                <button md-button type="button" color="primary" [disabled]="!comprobanteForm.valid" (click)="guardarComprobante()">Guardar</button>
+              </div>
+              <div fxFlex="33">
+              </div>
+              <div fxFlex="34">
+              </div>
+            </div>
+          </form>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

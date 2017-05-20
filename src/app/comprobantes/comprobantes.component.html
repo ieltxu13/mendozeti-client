@@ -1,0 +1,58 @@
+<div fxColumn="row">
+  <div class="cardContainer"
+       fxFlex="80"
+       fxFlexOffset="10">
+    <md-card>
+      <md-card-title class="center-title">
+        <h2>Listado de Comprobantes</h2>
+      </md-card-title>
+      <md-card-content>
+        <div fxLayout="row">
+          <div fxFlex>
+            <md-input-container>
+              <input mdInput type="text" #filtro id="filtro" placeholder="Buscar" class="form-control" required name="filtro">
+            </md-input-container>
+          </div>
+          <div fxFlex>
+          </div>
+          <div fxFlex>
+          </div>
+          <div fxFlex="10">
+
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div fxFlex>
+            <h2>Referencia</h2>
+          </div>
+          <div fxFlex>
+            <h2>Monto</h2>
+          </div>
+          <div fxFlex>
+            <h2>Asociaciones</h2>
+          </div>
+          <div fxFlex="10">
+
+          </div>
+        </div>
+        <div>
+          <div fxLayout="row" *ngFor="let comprobante of comprobantes | filtroComprobante: filtro.value">
+            <div fxFlex>
+              <h3>{{comprobante.referencia}}</h3>
+            </div>
+            <div fxFlex>
+              <h3>{{comprobante.total}}</h3>
+            </div>
+            <div fxFlex>
+              <h3>{{comprobante.asignaciones}}</h3>
+            </div>
+            <div fxFlex="10">
+              <a><md-icon>create</md-icon></a>
+            </div>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
