@@ -1,98 +1,115 @@
-<div fxLayout='column' *ngIf="formularioHabilitado">
-  <form #inscripcionForm="ngForm" action="index.html" method="post">
-    <div fxLayout='row'>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="nombre" placeholder="Nombre" class="form-control" required name="nombre" [(ngModel)]="inscripto.nombre">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="apellido" placeholder="Apellido" class="form-control" required name="apellido" [(ngModel)]="inscripto.apellido">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="documento" placeholder="Documento" class="form-control" required name="documento" [(ngModel)]="inscripto.documento">
-        </md-input-container>
-      </div>
-    </div>
-    <div fxLayout='row'>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="pais" placeholder="Pais" class="form-control" required name="pais" [(ngModel)]="inscripto.pais">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="provincia" placeholder="Provincia" class="form-control" required name="provincia" [(ngModel)]="inscripto.provincia">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-          <md-input-container>
-            <input mdInput type="text" id="ciudad" placeholder="Ciudad" class="form-control" required name="ciudad" [(ngModel)]="inscripto.ciudad">
-          </md-input-container>
-      </div>
-    </div>
-    <div fxLayout='row'>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="email" id="email" placeholder="Email" class="form-control" required name="email" [(ngModel)]="inscripto.email" email>
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="telefono1" placeholder="Telefono" class="form-control" required name="telefono1" [(ngModel)]="inscripto.telefono1">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="telefono2" placeholder="Otro Telefono" class="form-control" required name="telefono2" [(ngModel)]="inscripto.telefono2">
-        </md-input-container>
-      </div>
-    </div>
-    <div fxLayout='row'>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="tipoComida" placeholder="Preferencia de comida" class="form-control" required name="tipoComida" [(ngModel)]="inscripto.tipoComida">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-checkbox>Colabora?</md-checkbox>
-      </div>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="fechaLlegada" placeholder="Fecha de llegada" class="form-control" required name="fechaLlegada" [(ngModel)]="inscripto.fechaLlegada">
-        </md-input-container>
-      </div>
-    </div>
-    <div fxLayout='row'>
-      <div fxFlex="33">
-        <md-input-container>
-          <input mdInput type="text" id="fechaSalida" placeholder="Fecha de salida" class="form-control" required name="fechaSalida" [(ngModel)]="inscripto.fechaSalida">
-        </md-input-container>
-      </div>
-      <div fxFlex="33">
-        <md-checkbox>Primer Eti?</md-checkbox>
-      </div>
-    </div>
-    <div fxLayout='row'>
-      <div fxFlex="33">
-        <button [disabled]="!inscripcionForm.valid" md-raised-button (click)="inscribir()">Inscribir</button>
-      </div>
-    </div>
-  </form>
-</div>
+<br />
+<div fxColumn="row">
+  <div class="cardContainer"
+       fxFlex="80"
+       fxFlexOffset="10">
+    <md-card>
+      <md-card-title class="center-title">
+      Formulario Inscripción
+      </md-card-title>
+      <md-card-content>
+        <div fxLayout='column' *ngIf="formularioHabilitado">
+          <form #inscripcionForm="ngForm" action="index.html" method="post">
+            <div fxLayout='row' class="detail-field">
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="nombre" placeholder="Nombre" class="form-control" required name="nombre" [(ngModel)]="inscripto.nombre">
+                </md-input-container>
+              </div>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="apellido" placeholder="Apellido" class="form-control" required name="apellido" [(ngModel)]="inscripto.apellido">
+                </md-input-container>
+              </div>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="documento" placeholder="Documento" class="form-control" required name="documento" [(ngModel)]="inscripto.documento">
+                </md-input-container>
+              </div>
+            </div>
+            <div fxLayout='row' class="detail-field">
+              <div fxFlex="33">
+                  <md-select placeholder="Pais" required (change)="paisSelectChange($event.value)">
+                    <md-option *ngFor="let pais of paises" [value]="pais">{{ pais.name }}</md-option>
+                  </md-select>
+                  <div [hidden]="isPaisInputHidden">
+                    <md-input-container>
+                      <input mdInput type="text" id="otroPais" placeholder="Pais" class="form-control" required name="pais" [(ngModel)]="inscripto.pais">
+                    </md-input-container>
+                  </div>
+              </div>
+              <div fxFlex="33">
+                <md-select placeholder="Provincia" name="provincia" required [(ngModel)]="inscripto.provincia">
+                  <md-option *ngFor="let provincia of provincias" [value]="provincia.name">{{ provincia.name }}</md-option>
+                </md-select>
+              </div>
+              <div fxFlex="33">
+                  <md-input-container>
+                    <input mdInput type="text" id="ciudad" placeholder="Ciudad" class="form-control" required name="ciudad" [(ngModel)]="inscripto.ciudad">
+                  </md-input-container>
+              </div>
+            </div>
+            <div fxLayout='row' class="detail-field">
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="email" id="email" placeholder="Email" class="form-control" required name="email" [(ngModel)]="inscripto.email" email>
+                </md-input-container>
+              </div>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="telefono1" placeholder="Telefono" class="form-control" required name="telefono1" [(ngModel)]="inscripto.telefono">
+                </md-input-container>
+                <md-checkbox name="whatsapp" [(ngModel)]="inscripto.whatsapp">WhatsApp?</md-checkbox>
+              </div>
+              <div fxFlex="33">
+                <md-input-container>
+                  <input mdInput type="text" id="telefono2" placeholder="Telefono de Emergencia" class="form-control" name="telefono2" [(ngModel)]="inscripto.telefonoEmergencia">
+                </md-input-container>
+              </div>
+            </div>
+            <div fxLayout='row' class="detail-field">
+              <div fxFlex="33">
+                <md-select placeholder="Preferencia de comida" required name="tipoComida" [(ngModel)]="inscripto.tipoComida">
+                  <md-option *ngFor="let comida of comidas" [value]="comida.value">{{ comida.value }}</md-option>
+                </md-select>
+              </div>
+              <div fxFlex="33">
+                <md-select placeholder="Fecha de llegada" required name="fechaLlegada" [(ngModel)]="inscripto.fechaLlegada">
+                  <md-option *ngFor="let diaLlegada of diasLlegada" [value]="diaLlegada.value">{{ diaLlegada.value }}</md-option>
+                </md-select>
+              </div>
+            </div>
+            <div fxLayout='row' class="detail-field">
+              <div fxFlex="33">
+                <md-select placeholder="Fecha de salida" required name="fechaSalida" [(ngModel)]="inscripto.fechaSalida">
+                  <md-option *ngFor="let diaSalida of diasSalida" [value]="diaSalida.value">{{ diaSalida.value }}</md-option>
+                </md-select>
+              </div>
+              <div fxFlex="33">
+                <md-checkbox name="primerEti" [(ngModel)]="inscripto.primerEti">Primer Eti?</md-checkbox>
+              </div>
+            </div>
+            <div fxLayout='row' class="detail-field">
+              <div fxFlex="33">
+                <button [disabled]="!inscripcionForm.valid" md-raised-button (click)="inscribir()">Inscribir</button>
+              </div>
+            </div>
+          </form>
+        </div>
 
-<div fxLayout="column" *ngIf="mensaje">
-  <div fxFlex="100">
-    <h2>{{mensaje}}</h2>
-  </div>
-  <div fxFlex="100">
-    <a  md-button *ngIf="estado == 'enviado'" [routerLink]="['/eti', etiActivo._id]">Ir al listado de inscriptos</a>
-    <br>
-  </div>
-  <div fxFlex="100">
-    <button *ngIf="estado == 'enviado'" (click)="resetearFormulario()" md-button  name="button">Realizar otra inscripción</button>
+        <div fxLayout="column" *ngIf="mensaje">
+          <div fxFlex="100">
+            <h2>{{mensaje}}</h2>
+          </div>
+          <div fxFlex="100">
+            <a  md-button *ngIf="estado == 'enviado'" [routerLink]="['/eti', etiActivo._id]">Ir al listado de inscriptos</a>
+            <br>
+          </div>
+          <div fxFlex="100">
+            <button *ngIf="estado == 'enviado'" (click)="resetearFormulario()" md-button  name="button">Realizar otra inscripción</button>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
   </div>
 </div>
