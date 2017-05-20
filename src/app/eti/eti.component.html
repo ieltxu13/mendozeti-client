@@ -23,9 +23,13 @@
        fxFlex="80"
        fxFlexOffset="10">
     <md-card>
-      <a [routerLink]="['/comprobantes', eti._id]">Listado de comprobantes</a>
+      <div fxFlex>
+        <a md-button color="primary" [routerLink]="['/comprobantes', eti._id]">Listado de comprobantes</a>
+      </div>
+      <div fxFlex>
+        <a md-button color="primary" [routerLink]="['/comprobantes', eti._id, 'nuevo-comprobante']">Nuevo Comprobante</a>
+      </div>
       <br>
-      <a [routerLink]="['/comprobantes', eti._id, 'nuevo-comprobante']">Nuevo Comprobante</a>
     </md-card>
   </div>
 </div>
