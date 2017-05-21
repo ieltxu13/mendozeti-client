@@ -14,9 +14,10 @@ import { AuthService } from '../auth.service';
 })
 export class EtiComponent implements OnInit, OnDestroy {
   eti: any;
-  inscriptos: number;
-  preInscriptos: number;
-  enEspera: number;
+  cantidadInscriptos: number;
+  preInscriptos: any;
+  cantidadPreInscriptos: number;
+  cantidadEnEspera: number;
   filtroEstado: string = '';
   etiSub: any;
 
@@ -27,10 +28,11 @@ export class EtiComponent implements OnInit, OnDestroy {
     .subscribe((eti: {inscripciones: { fechaInscripcion, fechaInscripcionParsed, fechaVencimiento }}) => {
       this.eti = eti;
       if(eti) {
-        this.inscriptos  = _.filter(eti.inscripciones, {estado : 'Inscripto'}).length;
-        this.preInscriptos  = _.filter(eti.inscripciones, {estado : 'Pre inscripto'}).length;
-        this.enEspera = _.filter(eti.inscripciones, {estado : 'En lista de espera'}).length;
-        _.map(eti.inscripciones, (inscripto) => {
+        this.cantidadInscriptos  = _.filter(eti.inscripciones, {estado : 'Inscripto'}).length;
+        this.preInscriptos = _.filter(eti.inscripciones, {estado : 'Pre inscripto'});
+        this.cantidadPreInscriptos  = this.preInscriptos.length;
+        this.cantidadEnEspera = _.filter(eti.inscripciones, {estado : 'En lista de espera'}).length;
+        _.map(this.preInscriptos, (inscripto: any) => {
           let fecha = new Date(inscripto.fechaPreInscripcion)
           if(!inscripto.fechaPreInscripcionParsed) {
             inscripto.fechaPreInscripcionParsed = this.parsearFecha(fecha);
