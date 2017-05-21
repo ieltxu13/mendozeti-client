@@ -24,10 +24,10 @@
               <h3>Email:</h3><span> {{ inscripto.email }}</span>
             </div>
             <div fxFlex="33" class="detail-field">
-              <h3>Telefono:</h3><span> {{ inscripto.telefono1 }}</span>
+              <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
             </div>
             <div fxFlex="33" class="detail-field">
-              <h3>Telefono 2:</h3><span> {{ inscripto.telefono2 || 'No' }}</span>
+              <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
             </div>
           </div>
           <div fxLayout="row" *ngIf="auth.authenticated() && auth.user.admin">

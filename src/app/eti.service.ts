@@ -6,13 +6,12 @@ import * as _ from "lodash";
 @Injectable()
 export class EtiService {
 
-  private etiUrl = 'http://inscripcioneseti.com/api/eti';
-  //private etiUrl = 'http://localhost:3000/api/eti';
+  //private etiUrl = 'http://inscripcioneseti.com/api/eti';
+  private etiUrl = 'http://localhost:3000/api/eti';
   private currentEti;
   etis$ = new BehaviorSubject([]);
   eti$ = new BehaviorSubject({});
   etis = [];
-
 
   constructor(private _http: Http) { }
 
