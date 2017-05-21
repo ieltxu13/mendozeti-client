@@ -1,15 +1,37 @@
-<div fxLayout='column'>
-  <div fxFlex="33">
-    <md-input-container>
-      <input mdInput type="text" id="password" placeholder="Usuario" class="form-control" required minlength="4" maxlength="24" name="usuario" [(ngModel)]="usuario.usuario">
-    </md-input-container>
-  </div>
-  <div fxFlex="33">
-    <md-input-container>
-      <input mdInput type="password" id="password" placeholder="Password" class="form-control" required minlength="4" maxlength="24" name="password" [(ngModel)]="usuario.password">
-    </md-input-container>
-  </div>
-  <div fxFlex="33">
-    <button md-raised-button (click)="login()">Login</button>
+<br>
+<div fxColumn="row">
+  <div class="cardContainer"
+    fxFlex="20"
+    fxFlexOffset="40">
+    <md-card>
+      <md-card-title class="center-title">
+        Inicia Sesión
+      </md-card-title>
+      <md-card-content>
+
+        <div fxLayout='column'>
+          <div fxFlex="33">
+            <md-input-container>
+              <input mdInput type="text" id="password" placeholder="Usuario" class="form-control" required minlength="4" maxlength="24" name="usuario" [(ngModel)]="usuario.usuario">
+            </md-input-container>
+          </div>
+          <div fxFlex="33">
+            <md-input-container>
+              <input mdInput type="password" id="password" placeholder="Password" class="form-control" required minlength="4" maxlength="24" name="password" [(ngModel)]="usuario.password">
+            </md-input-container>
+          </div>
+          <div fxFlex="33">
+            <button md-raised-button (click)="login()">Login</button>
+            <md-chip-list class="mat-chip-list-stacked">
+            <md-chip selected="true" color="warn" *ngIf="mensaje">
+              {{mensaje}}
+            </md-chip>
+          </md-chip-list>
+
+          </div>
+        </div>
+
+      </md-card-content>
+    </md-card>
   </div>
 </div>

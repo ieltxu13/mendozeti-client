@@ -9,9 +9,9 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
   usuario: any = {};
+  mensaje: string;
 
   constructor(private _auth: AuthService, private _router: Router) { }
-
   ngOnInit() {
   }
 
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       }
     },
     error => {
-
+      this.mensaje = 'Usuario y/o contraseña incorrectos';
     });
   }
 
