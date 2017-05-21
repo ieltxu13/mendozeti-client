@@ -5,7 +5,7 @@
        fxFlexOffset="10">
     <md-card>
       <md-card-title class="center-title">
-      Formulario Inscripción
+      Formulario Inscripción (Combo: $700)
       </md-card-title>
       <md-card-content>
         <div fxLayout='column' *ngIf="formularioHabilitado">
@@ -79,7 +79,7 @@
                 </md-select>
               </div>
               <div fxFlex="33" *ngIf="mostrarAlojamiento">
-                <md-checkbox name="alojamiento" [(ngModel)]="inscripto.alojamiento">Te alojás en Albergue Parque ($500 x tres noches/ cupo 400 plazas)</md-checkbox>
+                <md-checkbox name="alojamiento" [(ngModel)]="inscripto.alojamiento">(Opcional) Te alojás en Albergue Parque? ($500 x tres noches/ cupo 400 plazas)</md-checkbox>
               </div>
             </div>
             <div fxLayout='row' class="detail-field">
@@ -92,7 +92,7 @@
                 <md-checkbox name="primerEti" [(ngModel)]="inscripto.primerEti">Primer Eti?</md-checkbox>
               </div>
               <div fxFlex="33">
-                <md-checkbox name="seminario" [hidden]="seminariosTotal.length >= 200" [(ngModel)]="inscripto.seminario">Tomás el seminario de Olga Besio?</md-checkbox>
+                <md-checkbox name="seminario" [hidden]="seminariosTotal.length >= 200" [(ngModel)]="inscripto.seminario">(Opcional) Tomás el seminario de Olga Besio? ($40)</md-checkbox>
                 <div [hidden]="!inscripto.seminario">
                   Que horario preferís?
                   <md-radio-group name="horaSeminario" [(ngModel)]="inscripto.turnoSeminario" required>

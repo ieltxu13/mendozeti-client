@@ -6,8 +6,8 @@ import * as _ from "lodash";
 @Injectable()
 export class ComprobanteService {
 
-  private comprobanteUrl = 'http://inscripcioneseti.com/api/comprobantes';
-  //private comprobanteUrl = 'http://localhost:3000/api/comprobantes';
+  //private comprobanteUrl = 'http://inscripcioneseti.com/api/comprobantes';
+  private comprobanteUrl = 'http://localhost:3000/api/comprobantes';
   comprobantes$ = new BehaviorSubject([]);
 
 
