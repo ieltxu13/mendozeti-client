@@ -96,10 +96,12 @@
               <h3>{{inscripto.fechaPreInscripcionParsed}}</h3>
             </div>
             <div fxFlex>
-              <h3>{{inscripto.fechaVencimiento}}</h3>
+              <h3 [ngClass]="{'vencido': inscripto.vencido }">
+                {{inscripto.fechaVencimientoParsed}}
+              </h3>
             </div>
             <div fxFlex="10">
-              <a *ngIf="puedeEditar(inscripto)" [routerLink]="['inscripcion', inscripto._id]"><md-icon>create</md-icon></a>
+              <a *ngIf="puedeEditar()" [routerLink]="['inscripcion', inscripto._id]"><md-icon>create</md-icon></a>
             </div>
           </div>
         </div>

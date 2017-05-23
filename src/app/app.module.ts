@@ -52,6 +52,10 @@ import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
     NgUploaderModule,
     RouterModule.forRoot([
       {
+        path: '',
+        component: EtiListComponent
+      },
+      {
         path: 'inscripcion',
         component: FormularioInscripcionComponent
       },
@@ -74,10 +78,12 @@ import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
       },
       {
         path: 'comprobantes/:etiId',
+        canActivate: [AdminGuard],
         component: ComprobantesComponent
       },
       {
         path: 'comprobantes/:etiId/nuevo-comprobante',
+        canActivate: [AdminGuard],
         component: NuevoComprobanteComponent
       }
   ])],
