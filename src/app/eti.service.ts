@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as _ from "lodash";
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class EtiService {
 
-  private etiUrl = 'http://inscripcioneseti.com/api/eti';
-  //private etiUrl = 'http://localhost:3000/api/eti';
+  private etiUrl = `${environment.baseUrl}/api/eti`;
   private currentEti;
   etis$ = new BehaviorSubject([]);
   eti$ = new BehaviorSubject({});

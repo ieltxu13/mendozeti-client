@@ -5,9 +5,8 @@ import { ComprobanteService } from '../comprobante.service';
 import { AuthService } from '../auth.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes } from 'ngx-uploader';
 import * as _ from 'lodash';
+import { environment } from '../../environments/environment';
 
-//const URL = 'http://localhost:3000/api/upload';
-const URL = 'http://inscripcioneseti.com/api/upload';
 
 @Component({
   selector: 'app-detalle-inscripto',
@@ -27,6 +26,8 @@ export class DetalleInscriptoComponent implements OnInit {
   comprobanteEncontrado: any;
   uploading: boolean = false;
   fileSelected: boolean = false;
+  uploadUrl = `${environment.baseUrl}/api/upload`;
+  baseUrl = environment.baseUrl;
 
   constructor(private _route: ActivatedRoute, private _router: Router,
     private _etiService: EtiService,
@@ -101,7 +102,7 @@ export class DetalleInscriptoComponent implements OnInit {
   startUpload(): void {  // manually start uploading
     const event: UploadInput = {
       type: 'uploadAll',
-      url: URL + `/${this.eti._id}/${this.inscripto._id}`,
+      url: this.uploadUrl + `/${this.eti._id}/${this.inscripto._id}`,
       method: 'POST',
       concurrency: 1 // set sequential uploading of files with concurrency 1
     }
