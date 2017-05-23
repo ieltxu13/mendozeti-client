@@ -2,96 +2,113 @@
 <div fxColumn="row">
   <div class="cardContainer"
        fxFlex="80"
-       fxFlexOffset="10">
+       fxFlex.sm="90"
+       fxFlex.xs="100"
+       fxFlexOffset="10"
+       fxFlexOffset.sm="5"
+       fxFlexOffset.xs="0">
     <md-card>
       <md-card-title class="center-title">
       Formulario Inscripción (Combo: $700)
       </md-card-title>
       <md-card-content>
-        <div fxLayout='column' *ngIf="formularioHabilitado">
+        <div *ngIf="formularioHabilitado">
           <form #inscripcionForm="ngForm" action="index.html" method="post">
-            <div fxLayout='row' class="detail-field">
-              <div fxFlex="33">
+            <div fxLayoutWrap fxLayout='row'>
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-input-container>
-                  <input mdInput type="text" id="nombre" placeholder="Nombre" class="form-control" required name="nombre" [(ngModel)]="inscripto.nombre">
+                  <input #nombre="ngModel" mdInput type="text" id="nombre" placeholder="Nombre" class="form-control" required name="nombre" [(ngModel)]="inscripto.nombre">
+                  <md-hint *ngIf="nombre.invalid" [ngStyle]="{'color': 'red'}" align="start">Requerido</md-hint>
                 </md-input-container>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-input-container>
-                  <input mdInput type="text" id="apellido" placeholder="Apellido" class="form-control" required name="apellido" [(ngModel)]="inscripto.apellido">
+                  <input #apellido="ngModel" mdInput type="text" id="apellido" placeholder="Apellido" class="form-control" required name="apellido" [(ngModel)]="inscripto.apellido">
+                  <md-hint *ngIf="apellido.invalid" [ngStyle]="{'color': 'red'}" align="start">Requerido</md-hint>
                 </md-input-container>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-input-container>
-                  <input mdInput type="text" id="documento" placeholder="Documento" class="form-control" required name="documento" [(ngModel)]="inscripto.documento">
+                  <input #documento="ngModel" mdInput type="text" id="documento" placeholder="Documento" class="form-control" required name="documento" [(ngModel)]="inscripto.documento">
+                  <md-hint *ngIf="documento.invalid" [ngStyle]="{'color': 'red'}" align="start">Requerido</md-hint>
                 </md-input-container>
               </div>
-            </div>
-            <div fxLayout='row' class="detail-field">
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                   <md-select placeholder="Pais" required (change)="paisSelectChange($event.value)">
                     <md-option *ngFor="let pais of paises" [value]="pais">{{ pais.name }}</md-option>
                   </md-select>
                   <div [hidden]="isPaisInputHidden">
                     <md-input-container>
-                      <input mdInput type="text" id="otroPais" placeholder="Pais" class="form-control" required name="pais" [(ngModel)]="inscripto.pais">
+                      <input #pais="ngModel"mdInput type="text" id="otroPais" placeholder="Pais" class="form-control" required name="pais" [(ngModel)]="inscripto.pais">
                     </md-input-container>
                   </div>
+                  <div *ngIf="pais.invalid" class="requerido">
+                    Requerido
+                  </div>
               </div>
-              <div fxFlex="33">
-                <md-select placeholder="Provincia" name="provincia" required [(ngModel)]="inscripto.provincia">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+                <md-select #provincia="ngModel" placeholder="Provincia" name="provincia" required [(ngModel)]="inscripto.provincia">
                   <md-option *ngFor="let provincia of provincias" [value]="provincia.name">{{ provincia.name }}</md-option>
                 </md-select>
+                <div *ngIf="provincia.invalid" class="requerido">
+                  Requerido
+                </div>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                   <md-input-container>
-                    <input mdInput type="text" id="ciudad" placeholder="Ciudad" class="form-control" required name="ciudad" [(ngModel)]="inscripto.ciudad">
+                    <input #ciudad="ngModel" mdInput type="text" id="ciudad" placeholder="Ciudad" class="form-control" required name="ciudad" [(ngModel)]="inscripto.ciudad">
+                    <md-hint *ngIf="ciudad.invalid" [ngStyle]="{'color': 'red'}" align="start">Requerido</md-hint>
                   </md-input-container>
               </div>
-            </div>
-            <div fxLayout='row' class="detail-field">
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-input-container>
-                  <input mdInput type="email" id="email" placeholder="Email" class="form-control" required name="email" [(ngModel)]="inscripto.email" email>
+                  <input #email="ngModel" mdInput type="email" id="email" placeholder="Email" class="form-control" required name="email" [(ngModel)]="inscripto.email" email>
+                  <md-hint *ngIf="email.invalid" [ngStyle]="{'color': 'red'}" align="start">Invalido</md-hint>
                 </md-input-container>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-input-container>
-                  <input mdInput type="text" id="telefono1" placeholder="Telefono" class="form-control" required name="telefono1" [(ngModel)]="inscripto.telefono">
+                  <input #telefono="ngModel" mdInput type="text" id="telefono1" placeholder="Telefono" class="form-control" required name="telefono1" [(ngModel)]="inscripto.telefono">
+                  <md-hint *ngIf="telefono.invalid" [ngStyle]="{'color': 'red'}" align="start">Requerido</md-hint>
                 </md-input-container>
                 <md-checkbox name="whatsapp" [(ngModel)]="inscripto.whatsapp">WhatsApp?</md-checkbox>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-input-container>
                   <input mdInput type="text" id="telefono2" placeholder="Telefono de Emergencia" class="form-control" name="telefono2" [(ngModel)]="inscripto.telefonoEmergencia">
                 </md-input-container>
               </div>
-            </div>
-            <div fxLayout='row' class="detail-field">
-              <div fxFlex="33">
-                <md-select placeholder="Preferencia de comida" required name="tipoComida" [(ngModel)]="inscripto.tipoComida">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+                <md-select #tipoComida="ngModel" placeholder="Preferencia de comida" required name="tipoComida" [(ngModel)]="inscripto.tipoComida">
                   <md-option *ngFor="let comida of comidas" [value]="comida.value">{{ comida.value }}</md-option>
                 </md-select>
+                <div *ngIf="tipoComida.invalid" class="requerido">
+                  Requerido
+                </div>
               </div>
-              <div fxFlex="33">
-                <md-select placeholder="Fecha de llegada" required name="fechaLlegada" [(ngModel)]="inscripto.fechaLlegada">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+                <md-select #fechaLlegada="ngModel" placeholder="Fecha de llegada" required name="fechaLlegada" [(ngModel)]="inscripto.fechaLlegada">
                   <md-option *ngFor="let diaLlegada of diasLlegada" [value]="diaLlegada.value">{{ diaLlegada.value }}</md-option>
                 </md-select>
+                <div *ngIf="fechaLlegada.invalid" class="requerido">
+                  Requerido
+                </div>
               </div>
-              <div fxFlex="33" *ngIf="mostrarAlojamiento">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field" *ngIf="mostrarAlojamiento">
                 <md-checkbox name="alojamiento" [(ngModel)]="inscripto.alojamiento">(Opcional) Te alojás en Albergue Parque? ($500 x tres noches/ cupo 400 plazas)</md-checkbox>
               </div>
-            </div>
-            <div fxLayout='row' class="detail-field">
-              <div fxFlex="33">
-                <md-select placeholder="Fecha de salida" required name="fechaSalida" [(ngModel)]="inscripto.fechaSalida">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+                <md-select #fechaSalida="ngModel" placeholder="Fecha de salida" required name="fechaSalida" [(ngModel)]="inscripto.fechaSalida">
                   <md-option *ngFor="let diaSalida of diasSalida" [value]="diaSalida.value">{{ diaSalida.value }}</md-option>
                 </md-select>
+                <div *ngIf="fechaSalida.invalid" class="requerido">
+                  Requerido
+                </div>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-checkbox name="primerEti" [(ngModel)]="inscripto.primerEti">Primer Eti?</md-checkbox>
               </div>
-              <div fxFlex="33">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <md-checkbox name="seminario" [hidden]="seminariosTotal.length >= 200" [(ngModel)]="inscripto.seminario">(Opcional) Tomás el seminario de Olga Besio? ($40)</md-checkbox>
                 <div [hidden]="!inscripto.seminario">
                   Que horario preferís?
@@ -103,8 +120,8 @@
                 </div>
               </div>
             </div>
-            <div fxLayout='row' class="detail-field">
-              <div fxFlex="33">
+            <div fxLayout='row' fxLayout.sm='column' fxLayout.xs='column' class="detail-field">
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
                 <button [disabled]="!inscripcionForm.valid" md-raised-button (click)="inscribir()">Inscribir</button>
               </div>
             </div>

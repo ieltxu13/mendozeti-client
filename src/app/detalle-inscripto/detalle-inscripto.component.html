@@ -7,44 +7,39 @@
     <md-card *ngIf="inscripto" class="inscripto-card">
       <md-card-title class="center-title">{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
       <md-card-content>
-        <div fxLayout="column">
-          <div fxLayout="row">
-            <div fxFlex="34" class="detail-field">
+          <div fxLayout="row" fxLayoutWrap>
+            <div fxFlex="50" fxFlex.gt-sm="33" class="detail-field">
               <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
             </div>
-            <div fxFlex="33" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
               <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
             </div>
-            <div fxFlex="33" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
               <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
             </div>
-          </div>
-          <div fxLayout="row">
-            <div fxFlex="34" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33" class="detail-field">
               <h3>Email:</h3><span> {{ inscripto.email }}</span>
             </div>
-            <div fxFlex="33" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
               <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
               <h3>Whatsapp:</h3> {{ inscripto.whatsapp ? 'SI' : 'NO'}}
             </div>
-            <div fxFlex="33" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
               <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
             </div>
-          </div>
-          <div fxLayout="row">
-            <div fxFlex="34" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33" class="detail-field">
               <h3>Alojamiento:</h3><span> {{ inscripto.alojamiento ? 'SI': 'NO' }}</span>
             </div>
-            <div fxFlex="33" class="detail-field">
+            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
               <h3>Seminario:</h3> {{ inscripto.seminario ? 'SI' : 'NO'}}
               <h3 *ngIf="inscripto.seminario">Turno:</h3>
               <span *ngIf="inscripto.seminario"> {{ inscripto.turnoSeminario }}</span>
             </div>
-            <div fxFlex="33" class="detail-field">
+            <div fxFlex="33" fxFlex.gt-sm="33"class="detail-field">
               <h3>Documento:</h3><span> {{ inscripto.documento }}</span>
             </div>
           </div>
-          <div fxLayout="row" *ngIf="auth.authenticated() && auth.user.admin">
+          <div *ngIf="auth.authenticated() && auth.user.admin">
             <div fxFlex="50" class="detail-field">
               <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
                 <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
@@ -71,7 +66,6 @@
               </div>
             </div>
           </div>
-        </div>
       </md-card-content>
     </md-card>
   </div>
@@ -101,8 +95,7 @@
               <h2>Tu comprobante ya está subido</h2>
             </div>
             <div fxFlex="50" *ngIf="auth.authenticated() && auth.user.admin && inscripto.comprobante">
-              <a md-button color="primary" [href]="'http://inscripcioneseti.com/resources?file=' + inscripto.comprobante" target="_blank">
-                <!-- <a md-button color="primary" [href]="'http://localhost:3000/resources?file=' + inscripto.comprobante" target="_blank"> -->
+              <a md-button color="primary" [href]="baseUrl + '/resources?file=' + inscripto.comprobante" target="_blank">
                 ver comprobante
                 <md-icon>visibility</md-icon>
               </a>

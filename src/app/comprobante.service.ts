@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as _ from "lodash";
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class ComprobanteService {
 
-  private comprobanteUrl = 'http://inscripcioneseti.com/api/comprobantes';
-  //private comprobanteUrl = 'http://localhost:3000/api/comprobantes';
+  private comprobanteUrl = `${environment.baseUrl}/api/comprobantes`;
   comprobantes$ = new BehaviorSubject([]);
 
 
