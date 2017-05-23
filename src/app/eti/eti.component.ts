@@ -20,7 +20,7 @@ export class EtiComponent implements OnInit, OnDestroy {
   cantidadEnEspera: number;
   filtroEstado: string = '';
   etiSub: any;
-
+  fechaHoy: Date = new Date();
   constructor(private _route: ActivatedRoute, private _etiService: EtiService, public auth: AuthService) { }
 
   ngOnInit() {
@@ -39,7 +39,8 @@ export class EtiComponent implements OnInit, OnDestroy {
           }
           if(!inscripto.fechaVencimiento) {
             let fechaVencimiento = this.contarDiasHabiles(fecha, 7);
-            inscripto.fechaVencimiento = this.parsearFecha(fechaVencimiento);
+            inscripto.vencido = this.vencido(fechaVencimiento);
+            inscripto.fechaVencimientoParsed = this.parsearFecha(fechaVencimiento);
           }
         });
       }
@@ -75,5 +76,9 @@ export class EtiComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.etiSub.unsubscribe();
+  }
+
+  vencido(fecha: Date) {
+    return fecha && (fecha.getTime() < this.fechaHoy.getTime());
   }
 }

@@ -15,9 +15,9 @@ export class FiltroEstadoPipe implements PipeTransform {
           case '':
             return true;
           case 'POR APROBAR':
-            return item.estado == 'Pre inscripto' && item.comprobante;
+            return item.estado.toUpperCase() == 'PRE INSCRIPTO' && item.comprobante;
           default:
-            return item.estad == searchTerm;
+            return item.estado.toUpperCase() == searchTerm;
         }
       });
   }

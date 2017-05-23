@@ -6,8 +6,8 @@ import { AuthService } from '../auth.service';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes } from 'ngx-uploader';
 import * as _ from 'lodash';
 
-//const URL = 'http://localhost:3000/api/upload';
-const URL = 'http://inscripcioneseti.com/api/upload';
+const URL = 'http://localhost:3000/api/upload';
+//const URL = 'http://inscripcioneseti.com/api/upload';
 
 @Component({
   selector: 'app-detalle-inscripto',
@@ -25,6 +25,9 @@ export class DetalleInscriptoComponent implements OnInit {
   comprobantes = [];
   mensaje: any = false;
   comprobanteEncontrado: any;
+  uploading: boolean = false;
+  fileSelected: boolean = false;
+
   constructor(private _route: ActivatedRoute, private _router: Router,
     private _etiService: EtiService,
     private _comprobanteService: ComprobanteService,
@@ -41,6 +44,8 @@ export class DetalleInscriptoComponent implements OnInit {
        (eti: {inscripciones, _id}) => {
          this.eti = eti;
          if(eti) {
+           this.fileSelected = false;
+           this.uploading = false
            this.inscripto =_.find(eti.inscripciones, { '_id': params['inscripcionId']});
            this._comprobanteService.getComprobantes(eti._id).subscribe(
              comprobantes => {
@@ -69,10 +74,13 @@ export class DetalleInscriptoComponent implements OnInit {
  }
 
  onUploadOutput(output: UploadOutput): void {
+   console.log(output);
     if (output.type === 'allAddedToQueue') { // when all files added in queue
     } else if (output.type === 'addedToQueue') {
       this.files.push(output.file); // add file to array when added
+      this.fileSelected = true;
     } else if (output.type === 'uploading') {
+      this.uploading = true;
       // update current data in files array for uploading file
       const index = this.files.findIndex(file => file.id === output.file.id);
       this.files[index] = output.file;
@@ -85,6 +93,8 @@ export class DetalleInscriptoComponent implements OnInit {
       this.dragOver = false;
     } else if (output.type === 'drop') { // on drop event
       this.dragOver = false;
+    } else if (output.type === 'done') {
+      this._etiService.getEti(this.eti._id, true);
     }
   }
 

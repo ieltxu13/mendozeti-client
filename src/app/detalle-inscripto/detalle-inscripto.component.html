@@ -25,9 +25,23 @@
             </div>
             <div fxFlex="33" class="detail-field">
               <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
+              <h3>Whatsapp:</h3> {{ inscripto.whatsapp ? 'SI' : 'NO'}}
             </div>
             <div fxFlex="33" class="detail-field">
               <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
+            </div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="34" class="detail-field">
+              <h3>Alojamiento:</h3><span> {{ inscripto.alojamiento ? 'SI': 'NO' }}</span>
+            </div>
+            <div fxFlex="33" class="detail-field">
+              <h3>Seminario:</h3> {{ inscripto.seminario ? 'SI' : 'NO'}}
+              <h3 *ngIf="inscripto.seminario">Turno:</h3>
+              <span *ngIf="inscripto.seminario"> {{ inscripto.turnoSeminario }}</span>
+            </div>
+            <div fxFlex="33" class="detail-field">
+              <h3>Documento:</h3><span> {{ inscripto.documento }}</span>
             </div>
           </div>
           <div fxLayout="row" *ngIf="auth.authenticated() && auth.user.admin">
@@ -70,24 +84,29 @@
         <div fxLayout="column">
           <div fxLayout="row" *ngIf="!inscripto.comprobante">
             <div fxFlex="50">
-                <h3 for="combrobante">Selecciona Un Archivo</h3>
+                <h3>Selecciona Un Archivo</h3>
                 <input id="comprobante" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
-              <button md-button color="accent" (click)="startUpload()">
+              <button *ngIf="fileSelected" md-button color="accent" (click)="startUpload()">
                 Click aquí para subir<md-icon>cloud_upload</md-icon>
               </button>
+              <md-progress-bar
+                *ngIf="uploading"
+                [color]="primary"
+                [mode]="indeterminate">
+              </md-progress-bar>
             </div>
           </div>
           <div fxLayout="row" *ngIf="inscripto.comprobante">
             <div fxFlex="50">
               <h2>Tu comprobante ya está subido</h2>
             </div>
-          </div>
-          <div fxFlex="50" *ngIf="auth.authenticated() && auth.user.admin">
-            <a md-button color="primary" [href]="'http://inscripcioneseti.com/resources?file=' + inscripto.comprobante" target="_blank">
-            <!-- <a md-button color="primary" [href]="'http://localhost:3000/resources?file=' + inscripto.comprobante" target="_blank"> -->
-              ver comprobante
-              <md-icon>visibility</md-icon>
-            </a>
+            <div fxFlex="50" *ngIf="auth.authenticated() && auth.user.admin && inscripto.comprobante">
+              <a md-button color="primary" [href]="'http://inscripcioneseti.com/resources?file=' + inscripto.comprobante" target="_blank">
+                <!-- <a md-button color="primary" [href]="'http://localhost:3000/resources?file=' + inscripto.comprobante" target="_blank"> -->
+                ver comprobante
+                <md-icon>visibility</md-icon>
+              </a>
+            </div>
           </div>
         </div>
       </md-card-content>

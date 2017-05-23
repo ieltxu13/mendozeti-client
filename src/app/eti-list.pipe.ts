@@ -10,7 +10,9 @@ export class EtiListPipe implements PipeTransform {
     searchTerm = searchTerm.toUpperCase();
       if(!data) return [];
       return data.filter(item => {
-        return item.nombre.toUpperCase().indexOf(searchTerm) !== -1
+        return item.nombre.toUpperCase().indexOf(searchTerm) !== -1 ||
+        item.apellido.toUpperCase().indexOf(searchTerm) !== -1 ||
+        item.documento.toUpperCase().indexOf(searchTerm) !== -1;
       });
   }
 
