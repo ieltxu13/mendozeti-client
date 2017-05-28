@@ -9,7 +9,8 @@ import * as _ from 'lodash';
 export class FormularioInscripcionComponent implements OnInit, OnDestroy {
 
   inscripto: any = {
-    turnoSeminario: "cualquiera"
+    turnoSeminario: "cualquiera",
+    talleRemera: 'M'
   };
   etiActivo = null;
   mensaje: string;
@@ -135,7 +136,8 @@ export class FormularioInscripcionComponent implements OnInit, OnDestroy {
   resetearFormulario() {
     this._etiService.getEtis(true); // force etis synchronization
     this.inscripto = {
-      turnoSeminario: "cualquiera"
+      turnoSeminario: "cualquiera",
+      talleRemera: 'M'
     };
     this.formularioHabilitado = true;
   }

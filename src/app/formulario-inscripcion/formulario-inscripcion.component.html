@@ -119,6 +119,27 @@
                   </md-radio-group>
                 </div>
               </div>
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+                <md-checkbox name="remera" [(ngModel)]="inscripto.remera">(Opcional) Queres la remera del MendozETI? ($150)</md-checkbox>
+                <div [hidden]="!inscripto.remera">
+                  Tale?
+                  <md-radio-group name="talleRemera" [(ngModel)]="inscripto.talleRemera" required>
+                    <md-radio-button value="XS">XS</md-radio-button>
+                    <md-radio-button value="S">S</md-radio-button>
+                    <md-radio-button value="M">M</md-radio-button>
+                    <md-radio-button value="L">L</md-radio-button>
+                    <md-radio-button value="XL">XL</md-radio-button>
+                    <md-radio-button value="XXL">XXL</md-radio-button>
+                  </md-radio-group>
+                </div>
+              </div>
+              <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+                Necesitamos calcular el espacio del salon..
+                <md-radio-group name="abrazo" [(ngModel)]="inscripto.abrazo">
+                  <md-radio-button value="Abrazo abierto">Abrazo abierto</md-radio-button>
+                  <md-radio-button value="Abrazo cerrado">Abrazo cerrado</md-radio-button>
+                </md-radio-group>
+              </div>
             </div>
             <div fxLayout='row' fxLayout.sm='column' fxLayout.xs='column' class="detail-field">
               <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
