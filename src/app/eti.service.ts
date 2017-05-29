@@ -64,4 +64,9 @@ export class EtiService {
     const url = `${this.etiUrl}/${etiActivo._id}/inscripcion/${inscripto._id}`;
     return this._http.put(url, inscripto);
   }
+
+  reenviarMail(etiId, inscriptoId) {
+    const url = `${this.etiUrl}/${etiId}/inscripcion/${inscriptoId}/reenviarmail`;
+    return this._http.get(url);
+  }
 }

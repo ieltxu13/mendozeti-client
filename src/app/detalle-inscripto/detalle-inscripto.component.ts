@@ -123,4 +123,14 @@ export class DetalleInscriptoComponent implements OnInit {
     this.guardar();
   }
 
+  reenviarMail() {
+    this._etiService.reenviarMail(this.eti._id, this.inscripto._id)
+    .subscribe(() => {
+      this.mensaje = 'Mail reenviado';
+    },
+    error => {
+      this.mensaje = error;
+    })
+  }
+
 }
