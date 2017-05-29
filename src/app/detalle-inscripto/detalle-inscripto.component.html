@@ -56,6 +56,11 @@
             </md-select>
           </div>
           <div fxFlex="50">
+            <md-input-container>
+              <textarea mdInput placeholder="notas" [(ngModel)]="inscripto.notas" class="form-control"></textarea>
+            </md-input-container>
+          </div>
+          <div fxFlex="50">
             <div fxLayout="row">
               <button md-raised-button (click)="guardar()">Guardar</button>
             </div>
