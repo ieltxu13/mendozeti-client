@@ -7,65 +7,72 @@
     <md-card *ngIf="inscripto" class="inscripto-card">
       <md-card-title class="center-title">{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
       <md-card-content>
-          <div fxLayout="row" fxLayoutWrap>
-            <div fxFlex="50" fxFlex.gt-sm="33" class="detail-field">
-              <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
-              <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
-              <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33" class="detail-field">
-              <h3>Email:</h3><span> {{ inscripto.email }}</span>
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
-              <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
-              <h3>Whatsapp:</h3> {{ inscripto.whatsapp ? 'SI' : 'NO'}}
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
-              <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33" class="detail-field">
-              <h3>Alojamiento:</h3><span> {{ inscripto.alojamiento ? 'SI': 'NO' }}</span>
-            </div>
-            <div fxFlex="50" fxFlex.gt-sm="33"class="detail-field">
-              <h3>Seminario:</h3> {{ inscripto.seminario ? 'SI' : 'NO'}}
-              <h3 *ngIf="inscripto.seminario">Turno:</h3>
-              <span *ngIf="inscripto.seminario"> {{ inscripto.turnoSeminario }}</span>
-            </div>
-            <div fxFlex="33" fxFlex.gt-sm="33"class="detail-field">
-              <h3>Documento:</h3><span> {{ inscripto.documento }}</span>
+        <div fxLayout="row" fxLayoutWrap>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Email:</h3><span> {{ inscripto.email }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Whatsapp:</h3> {{ inscripto.whatsapp ? 'SI' : 'NO'}}
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Alojamiento:</h3><span> {{ inscripto.alojamiento ? 'SI': 'NO' }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Remera:</h3><span> {{ inscripto.remera ? 'SI': 'NO' }}</span>
+          </div>
+          <div fxFlex="50" fxFlex.gt-sm="33">
+            <h3>Seminario:</h3> {{ inscripto.seminario ? 'SI' : 'NO'}}
+            <h3 *ngIf="inscripto.seminario">Turno:</h3>
+            <span *ngIf="inscripto.seminario"> {{ inscripto.turnoSeminario }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.gt-sm="33">
+            <h3>Documento:</h3><span> {{ inscripto.documento }}</span>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div fxLayout="row" fxLayoutWrap *ngIf="auth.authenticated() && auth.user.admin">
+          <div fxFlex="50">
+            <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
+              <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+              <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+              <md-option [value]="'Inscripto'">Inscripto</md-option>
+              <md-option [value]="'Vencido'">Vencido</md-option>
+            </md-select>
+          </div>
+          <div fxFlex="50">
+            <div fxLayout="row">
+              <button md-raised-button (click)="guardar()">Guardar</button>
             </div>
           </div>
-          <div *ngIf="auth.authenticated() && auth.user.admin">
-            <div fxFlex="50" class="detail-field">
-              <md-select placeholder="Estado" [(ngModel)]="inscripto.estado">
-                <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
-                <md-option [value]="'En lista de espera'">En lista de espera</md-option>
-                <md-option [value]="'Inscripto'">Inscripto</md-option>
-                <md-option [value]="'Vencido'">Vencido</md-option>
-              </md-select>
-            </div>
-            <div fxFlex="50" class="detail-field">
-              <div fxLayout="row">
-                <button md-raised-button (click)="guardar()">Guardar</button>
-              </div>
-            </div>
-            <div fxFlex="50">
-              <md-input-container>
-                <input mdInput type="text" #busquedaReferencia placeholder="Referencia del comprobante" class="form-control" >
-              </md-input-container>
-              <button md-button color="primary" type="button" name="button" (click)="buscarComprobante(busquedaReferencia.value)">Buscar Comprobante</button>
-            </div>
-            <div fxFlex="50">
-              <div *ngIf="comprobanteEncontrado">
-                Monto: {{ comprobanteEncontrado.total }}
-                <button md-button color="primary" type="button" name="button" (click)="asociarComprobante()">Asociar Comprobante</button>
-              </div>
+          <div fxFlex="50">
+            <md-input-container>
+              <input mdInput type="text" #busquedaReferencia placeholder="Referencia del comprobante" class="form-control">
+            </md-input-container>
+            <button md-button color="primary" type="button" name="button" (click)="buscarComprobante(busquedaReferencia.value)">Buscar Comprobante</button>
+          </div>
+          <div fxFlex="50">
+            <div *ngIf="comprobanteEncontrado">
+              Monto: {{ comprobanteEncontrado.total }}
+              <button md-button color="primary" type="button" name="button" (click)="asociarComprobante()">Asociar Comprobante</button>
             </div>
           </div>
+        </div>
       </md-card-content>
     </md-card>
   </div>
@@ -78,15 +85,12 @@
         <div fxLayout="column">
           <div fxLayout="row" *ngIf="!inscripto.comprobante">
             <div fxFlex="50">
-                <h3>Selecciona Un Archivo</h3>
-                <input id="comprobante" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+              <h3>Selecciona Un Archivo</h3>
+              <input id="comprobante" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
               <button *ngIf="fileSelected" md-button color="accent" (click)="startUpload()">
                 Click aquí para subir<md-icon>cloud_upload</md-icon>
               </button>
-              <md-progress-bar
-                *ngIf="uploading"
-                [color]="primary"
-                [mode]="indeterminate">
+              <md-progress-bar *ngIf="uploading" [color]="primary" [mode]="indeterminate">
               </md-progress-bar>
             </div>
           </div>
