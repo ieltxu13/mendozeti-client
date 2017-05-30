@@ -1,17 +1,18 @@
 <br>
 <div fxColumn="row" *ngIf="eti">
-  <div class="cardContainer"
-       fxFlex="80"
-       fxFlexOffset="10">
+  <div class="cardContainer" fxFlex="80" fxFlexOffset="10">
     <md-card>
       <md-card-title class="center-title">
         {{ eti.nombre }}
       </md-card-title>
       <md-card-content>
         <md-chip-list>
-          <span>Inscriptos: </span><md-chip color="primary" selected>{{ cantidadInscriptos || 0 }}</md-chip>
-          <span>Pre-Inscriptos: </span><md-chip color="secondary" selected>{{ cantidadPreInscriptos || 0 }}</md-chip>
-          <span>En lista de espera: </span><md-chip color="warn" selected>{{ cantidadEnEspera || 0 }}</md-chip>
+          <span>Inscriptos: </span>
+          <md-chip color="primary" selected>{{ cantidadInscriptos || 0 }}</md-chip>
+          <span>Pre-Inscriptos: </span>
+          <md-chip color="secondary" selected>{{ cantidadPreInscriptos || 0 }}</md-chip>
+          <span>En lista de espera: </span>
+          <md-chip color="warn" selected>{{ cantidadEnEspera || 0 }}</md-chip>
         </md-chip-list>
 
       </md-card-content>
@@ -19,9 +20,7 @@
   </div>
 </div>
 <div fxColumn="row" *ngIf="eti && auth.authenticated() && auth.user.admin">
-  <div class="cardContainer"
-       fxFlex="80"
-       fxFlexOffset="10">
+  <div class="cardContainer" fxFlex="80" fxFlexOffset="10">
     <md-card>
       <div fxFlex>
         <a md-button color="primary" [routerLink]="['/comprobantes', eti._id]">Listado de comprobantes</a>
@@ -35,37 +34,48 @@
 </div>
 <!-- TABLA -->
 <div fxColumn="row">
-  <div class="cardContainer"
-       fxFlex="80"
-       fxFlexOffset="10">
+  <div class="cardContainer" fxFlex="80" fxFlexOffset="10">
     <md-card>
       <md-card-title class="center-title">
         <h2>Listado de Inscriptos</h2>
       </md-card-title>
       <md-card-content>
-        <div fxLayout="row">
-          <div fxFlex>
-            <md-input-container>
-              <input mdInput type="text" #filtro id="filtro" placeholder="Buscar" class="form-control" required name="filtro">
-            </md-input-container>
-          </div>
-          <div fxFlex>
-            <md-select placeholder="Estado" [(ngModel)]="filtroEstado">
-              <md-option [value]="'Todos'">Todos</md-option>
-              <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
-              <md-option [value]="'En lista de espera'">En lista de espera</md-option>
-              <md-option [value]="'Inscripto'">Inscripto</md-option>
-              <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Por Aprobar'">Por Aprobar</md-option>
-            </md-select>
-          </div>
-          <div fxFlex>
-          </div>
-          <div fxFlex>
-          </div>
-          <div fxFlex="10">
+        <form [formGroup]="filterForm" (submit)="destroyFormValues()" novalidate>
+          <div fxLayout="row" fxLayoutWrap>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-input-container>
+                <input mdInput type="text" name="datos" placeholder="Buscar" class="form-control" required name="filtro" formControlName="datos">
+              </md-input-container>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Estado" formControlName="estado">
+                <md-option [value]="'Todos'">Todos</md-option>
+                <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+                <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+                <md-option [value]="'Inscripto'">Inscripto</md-option>
+                <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Por Aprobar'">Por Aprobar</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="limite" formControlName="limite">
+                <md-option [value]="10">10</md-option>
+                <md-option [value]="50">50</md-option>
+                <md-option [value]="100">100</md-option>
+                <md-option [value]="200">200</md-option>
+                <md-option [value]="500">500</md-option>
+                <md-option [value]="1000">1000</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Provincia" name="provincia" formControlName="provincia">
+                <md-option *ngFor="let provincia of provincias" [value]="provincia.name">{{ provincia.name }}</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="10">
 
+            </div>
           </div>
-        </div>
+        </form>
 
         <div fxLayout="row">
           <div fxFlex>
@@ -85,7 +95,7 @@
           </div>
         </div>
         <div *ngIf="eti">
-          <div fxLayout="row" *ngFor="let inscripto of eti.inscripciones | etiList: filtro.value | filtroEstado: filtroEstado">
+          <div fxLayout="row" *ngFor="let inscripto of inscripcionesFiltradas">
             <div fxFlex>
               <h3>{{inscripto.nombre}} {{inscripto.apellido}}</h3>
             </div>
@@ -101,7 +111,9 @@
               </h3>
             </div>
             <div fxFlex="10">
-              <a *ngIf="puedeEditar(inscripto)" [routerLink]="['inscripcion', inscripto._id]"><md-icon>create</md-icon></a>
+              <a *ngIf="puedeEditar(inscripto)" [routerLink]="['inscripcion', inscripto._id]">
+                <md-icon>create</md-icon>
+              </a>
             </div>
           </div>
         </div>
