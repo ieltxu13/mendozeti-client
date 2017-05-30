@@ -7,38 +7,95 @@
     <md-card *ngIf="inscripto" class="inscripto-card">
       <md-card-title class="center-title">{{ inscripto.nombre }} {{ inscripto.apellido }}</md-card-title>
       <md-card-content>
-        <div fxLayout="row" fxLayoutWrap>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+        <div fxLayout="row" fxLayoutWrap *ngIf="auth.authenticated() && !auth.user.admin">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Email:</h3><span> {{ inscripto.email }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Whatsapp:</h3> {{ inscripto.whatsapp ? 'SI' : 'NO'}}
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Alojamiento:</h3><span> {{ inscripto.alojamiento ? 'SI': 'NO' }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Remera:</h3><span> {{ inscripto.remera ? 'SI': 'NO' }}</span>
           </div>
-          <div fxFlex="50" fxFlex.gt-sm="33">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
             <h3>Seminario:</h3> {{ inscripto.seminario ? 'SI' : 'NO'}}
             <h3 *ngIf="inscripto.seminario">Turno:</h3>
             <span *ngIf="inscripto.seminario"> {{ inscripto.turnoSeminario }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.gt-sm="33">
+            <h3>Documento:</h3><span> {{ inscripto.documento }}</span>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutWrap *ngIf="auth.authenticated() && auth.user.admin">
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <h3>Pais:</h3><span> {{ inscripto.pais }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <h3>Provincia:</h3><span> {{ inscripto.provincia }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <h3>Ciudad:</h3><span> {{ inscripto.ciudad }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <md-input-container>
+              <input #email="ngModel" mdInput type="email" id="email" placeholder="Email" class="form-control" required name="email" [(ngModel)]="inscripto.email" email>
+              <md-hint *ngIf="email.invalid" [ngStyle]="{'color': 'red'}" align="start">Invalido</md-hint>
+            </md-input-container>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <h3>Telefono:</h3><span> {{ inscripto.telefono }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <h3>Whatsapp:</h3> {{ inscripto.whatsapp ? 'SI' : 'NO'}}
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <h3>Telefono de Emergencia:</h3><span> {{ inscripto.telefonoEmergencia || 'No' }}</span>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <md-checkbox name="alojamiento" [(ngModel)]="inscripto.alojamiento">(Opcional) Te alojás en Albergue Parque? ($500 x tres noches/ cupo 400 plazas)</md-checkbox>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <md-checkbox name="remera" [(ngModel)]="inscripto.remera">(Opcional) Queres la remera del MendozETI? ($150)</md-checkbox>
+            <div [hidden]="!inscripto.remera">
+              Tale?
+              <md-radio-group name="talleRemera" [(ngModel)]="inscripto.talleRemera" required>
+                <md-radio-button value="XS">XS</md-radio-button>
+                <md-radio-button value="S">S</md-radio-button>
+                <md-radio-button value="M">M</md-radio-button>
+                <md-radio-button value="L">L</md-radio-button>
+                <md-radio-button value="XL">XL</md-radio-button>
+                <md-radio-button value="XXL">XXL</md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+          <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" class="detail-field">
+            <md-checkbox name="seminario" [(ngModel)]="inscripto.seminario">(Opcional) Tomás el seminario de Olga Besio? ($40)</md-checkbox>
+            <div [hidden]="!inscripto.seminario">
+              Que horario preferís?
+              <md-radio-group name="horaSeminario" [(ngModel)]="inscripto.turnoSeminario" required>
+                <md-radio-button value="primero">11</md-radio-button>
+                <md-radio-button value="segundo">18</md-radio-button>
+                <md-radio-button value="cualquiera">cualquiera</md-radio-button>
+              </md-radio-group>
+            </div>
           </div>
           <div fxFlex="33" fxFlex.gt-sm="33">
             <h3>Documento:</h3><span> {{ inscripto.documento }}</span>
