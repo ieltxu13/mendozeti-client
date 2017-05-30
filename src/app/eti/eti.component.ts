@@ -60,6 +60,13 @@ export class EtiComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.filterForm = this.formBuilder.group({
+      datos: [''],
+      estado: [''],
+      provincia: ['TODAS'],
+      limite: [ 10 ]
+    });
+
     this.etiSub = this._etiService.getEti(this._route.snapshot.params['id'], true)
     .subscribe((eti: {inscripciones: { fechaInscripcion, fechaInscripcionParsed, fechaVencimiento }}) => {
       this.eti = eti;
@@ -81,13 +88,6 @@ export class EtiComponent implements OnInit, OnDestroy {
         });
         this.filtrarInscriptos(this.filterForm.value);
       }
-    });
-
-    this.filterForm = this.formBuilder.group({
-      datos: [''],
-      estado: [''],
-      provincia: ['TODAS'],
-      limite: [ 10 ]
     });
 
     this.filterForm.valueChanges.subscribe(changes => {

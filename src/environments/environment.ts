@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://inscripcioneseti.com'
+  baseUrl: 'http://localhost:3000'
 };
