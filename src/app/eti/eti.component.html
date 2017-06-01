@@ -56,6 +56,9 @@
                 <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Por Aprobar'">Por Aprobar</md-option>
               </md-select>
             </div>
+            <div fxFlex="50" fxFlex.gt-sm="25" *ngIf="auth.authenticated() && auth.user.admin">
+              <md-checkbox name="observados" formControlName="observados">Incluir Observados</md-checkbox>
+            </div>
             <div fxFlex="50" fxFlex.gt-sm="25">
               <md-select placeholder="limite" formControlName="limite">
                 <md-option [value]="10">10</md-option>

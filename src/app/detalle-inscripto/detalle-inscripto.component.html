@@ -114,8 +114,11 @@
           </div>
           <div fxFlex="50">
             <md-input-container>
-              <textarea mdInput placeholder="notas" [(ngModel)]="inscripto.notas" class="form-control"></textarea>
+              <textarea mdInput placeholder="notas" cols="200" [(ngModel)]="inscripto.notas" class="form-control"></textarea>
             </md-input-container>
+          </div>
+          <div fxFlex="50">
+            <md-checkbox name="observado" [(ngModel)]="inscripto.observado">Observado</md-checkbox>
           </div>
           <div fxFlex="50">
             <div fxLayout="row">

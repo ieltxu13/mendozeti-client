@@ -12,3 +12,7 @@ md-input-container {
   font-size: 75%;
   color: red;
 }
+
+textarea {
+  widh: 100%;
+}
