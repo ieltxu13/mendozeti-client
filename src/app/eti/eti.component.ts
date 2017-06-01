@@ -64,7 +64,8 @@ export class EtiComponent implements OnInit, OnDestroy {
       datos: [''],
       estado: [''],
       provincia: ['TODAS'],
-      limite: [ 10 ]
+      limite: [ 10 ],
+      observados: [ true ]
     });
 
     this.etiSub = this._etiService.getEti(this._route.snapshot.params['id'], true)
@@ -123,6 +124,13 @@ export class EtiComponent implements OnInit, OnDestroy {
             return true;
           default:
             return inscripcion.provincia && inscripcion.provincia.toUpperCase() == filtros.provincia.toUpperCase();
+        }
+      })
+      .filter((inscripcion: any) => {
+        if(filtros.observados) {
+          return true;
+        } else {
+          return !inscripcion.observado;
         }
       })
       .take(filtros.limite)
