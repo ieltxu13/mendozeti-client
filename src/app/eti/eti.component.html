@@ -28,6 +28,9 @@
       <div fxFlex>
         <a md-button color="primary" [routerLink]="['/comprobantes', eti._id, 'nuevo-comprobante']">Nuevo Comprobante</a>
       </div>
+      <div fxFlex>
+        <a md-button color="primary" [routerLink]="['/planilla-de-aprobacion', eti._id]">Planilla de Aprobaciones</a>
+      </div>
       <br>
     </md-card>
   </div>
@@ -54,6 +57,7 @@
                 <md-option [value]="'En lista de espera'">En lista de espera</md-option>
                 <md-option [value]="'Inscripto'">Inscripto</md-option>
                 <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Por Aprobar'">Por Aprobar</md-option>
+                <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Observados'">Observados</md-option>
               </md-select>
             </div>
             <div fxFlex="50" fxFlex.gt-sm="25" *ngIf="auth.authenticated() && auth.user.admin">

@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdNativeDateModule, MdDatepickerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgUploaderModule } from 'ngx-uploader';
 
@@ -25,6 +25,7 @@ import { DetalleInscriptoComponent } from './detalle-inscripto/detalle-inscripto
 import { ComprobantesComponent } from './comprobantes/comprobantes.component';
 import { NuevoComprobanteComponent } from './nuevo-comprobante/nuevo-comprobante.component';
 import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
+import { PlanillaDeAprobacionComponent } from './planilla-de-aprobacion/planilla-de-aprobacion.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
     ComprobantesComponent,
     NuevoComprobanteComponent,
     FiltroComprobantePipe,
+    PlanillaDeAprobacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,8 @@ import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
     MaterialModule,
     FlexLayoutModule,
     NgUploaderModule,
+    MdNativeDateModule,
+    MdDatepickerModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -83,6 +87,11 @@ import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
         path: 'comprobantes/:etiId/nuevo-comprobante',
         canActivate: [AdminGuard],
         component: NuevoComprobanteComponent
+      },
+      {
+        path: 'planilla-de-aprobacion/:etiId',
+        canActivate: [AdminGuard],
+        component: PlanillaDeAprobacionComponent
       }
   ])],
   providers: [EtiService, ComprobanteService, AuthService, AdminGuard],

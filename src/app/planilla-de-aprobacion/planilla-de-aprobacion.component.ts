@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     FormGroup,
     FormBuilder
@@ -11,12 +11,15 @@ import * as _ from 'lodash';
 
 import { EtiService } from '../eti.service';
 import { AuthService } from '../auth.service';
+import { environment } from '../../environments/environment';
+
 @Component({
-  selector: 'app-eti',
-  templateUrl: './eti.component.html',
-  styleUrls: ['./eti.component.css']
+  selector: 'app-planilla-de-aprobacion',
+  templateUrl: './planilla-de-aprobacion.component.html',
+  styleUrls: ['./planilla-de-aprobacion.component.css']
 })
-export class EtiComponent implements OnInit, OnDestroy {
+export class PlanillaDeAprobacionComponent implements OnInit {
+
   eti: any;
   cantidadInscriptos: number;
   preInscriptos: any;
@@ -25,6 +28,8 @@ export class EtiComponent implements OnInit, OnDestroy {
   filterForm: FormGroup;
   etiSub: any;
   fechaHoy: Date = new Date();
+  baseUrl = environment.baseUrl;
+
   provincias = [
     {pais: 1, id: 1, name: 'TODAS'},
     {pais: 1, id: 2, name: 'Buenos Aires'},
@@ -57,7 +62,9 @@ export class EtiComponent implements OnInit, OnDestroy {
   constructor(private _route: ActivatedRoute,
     private _etiService: EtiService,
     public auth: AuthService,
-    public formBuilder: FormBuilder) { }
+    public formBuilder: FormBuilder,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
     this.filterForm = this.formBuilder.group({
@@ -68,7 +75,7 @@ export class EtiComponent implements OnInit, OnDestroy {
       observados: [ true ]
     });
 
-    this.etiSub = this._etiService.getEti(this._route.snapshot.params['id'], true)
+    this.etiSub = this._etiService.getEti(this._route.snapshot.params['etiId'], true)
     .subscribe((eti: {inscripciones: { fechaInscripcion, fechaInscripcionParsed, fechaVencimiento }}) => {
       this.eti = eti;
       if(eti) {
@@ -107,26 +114,7 @@ export class EtiComponent implements OnInit, OnDestroy {
         !_.isUndefined(inscripcion.documento) && inscripcion.documento.toUpperCase().indexOf(filtros.datos.toUpperCase()) !== -1;
       })
       .filter((inscripcion:any) => {
-        switch(filtros.estado.toUpperCase()) {
-          case 'TODOS':
-            return true;
-          case '':
-            return true;
-          case 'POR APROBAR':
-            return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante;
-          case 'OBSERVADOS':
-            return inscripcion.observado;
-          default:
-            return inscripcion.estado.toUpperCase() == filtros.estado.toUpperCase();
-        }
-      })
-      .filter((inscripcion: any) => {
-        switch(filtros.provincia.toUpperCase()) {
-          case 'TODAS':
-            return true;
-          default:
-            return inscripcion.provincia && inscripcion.provincia.toUpperCase() == filtros.provincia.toUpperCase();
-        }
+        return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante;
       })
       .filter((inscripcion: any) => {
         if(filtros.observados) {
@@ -140,8 +128,18 @@ export class EtiComponent implements OnInit, OnDestroy {
     }
   }
 
-  puedeEditar(inscripto) {
-    return this.auth.authenticated() && (this.auth.user.admin || inscripto._id == this.auth.user.inscripcionId);
+  inscribir(inscripto) {
+    inscripto.estado = 'Inscripto';
+    this._etiService.updateInscripto(inscripto)
+    .subscribe(
+      data => {
+        this._router.navigate(['/eti', this.eti._id]);
+      },
+      error => {
+        console.log(error)
+      }
+    );
+
   }
 
   parsearFecha(fecha) {
@@ -174,4 +172,5 @@ export class EtiComponent implements OnInit, OnDestroy {
   vencido(fecha: Date) {
     return fecha && (fecha.getTime() < this.fechaHoy.getTime());
   }
+
 }
