@@ -78,10 +78,10 @@ export class EtiComponent implements OnInit, OnDestroy {
         this.cantidadEnEspera = _.filter(eti.inscripciones, {estado : 'En lista de espera'}).length;
         _.map(this.preInscriptos, (inscripto: any) => {
           let fecha = new Date(inscripto.fechaPreInscripcion)
-          if(!inscripto.fechaPreInscripcionParsed) {
+          if(fecha && !inscripto.fechaPreInscripcionParsed) {
             inscripto.fechaPreInscripcionParsed = this.parsearFecha(fecha);
           }
-          if(!inscripto.fechaVencimiento) {
+          if(!inscripto.fechaVencimiento && fecha) {
             let fechaVencimiento = this.contarDiasHabiles(fecha, 7);
             inscripto.vencido = this.vencido(fechaVencimiento);
             inscripto.fechaVencimientoParsed = this.parsearFecha(fechaVencimiento);
@@ -114,6 +114,8 @@ export class EtiComponent implements OnInit, OnDestroy {
             return true;
           case 'POR APROBAR':
             return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante;
+          case 'PRE INSCRIPTO / SC':
+            return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante == undefined;
           case 'OBSERVADOS':
             return inscripcion.observado;
           default:

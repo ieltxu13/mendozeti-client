@@ -26,6 +26,7 @@ import { ComprobantesComponent } from './comprobantes/comprobantes.component';
 import { NuevoComprobanteComponent } from './nuevo-comprobante/nuevo-comprobante.component';
 import { FiltroComprobantePipe } from './filtro-comprobante.pipe';
 import { PlanillaDeAprobacionComponent } from './planilla-de-aprobacion/planilla-de-aprobacion.component';
+import { ListadoDeContactosComponent } from './listado-de-contactos/listado-de-contactos.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PlanillaDeAprobacionComponent } from './planilla-de-aprobacion/planilla
     NuevoComprobanteComponent,
     FiltroComprobantePipe,
     PlanillaDeAprobacionComponent,
+    ListadoDeContactosComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +94,11 @@ import { PlanillaDeAprobacionComponent } from './planilla-de-aprobacion/planilla
         path: 'planilla-de-aprobacion/:etiId',
         canActivate: [AdminGuard],
         component: PlanillaDeAprobacionComponent
+      },
+      {
+        path: 'listado-de-contactos/:etiId',
+        canActivate: [AdminGuard],
+        component: ListadoDeContactosComponent
       }
   ])],
   providers: [EtiService, ComprobanteService, AuthService, AdminGuard],
