@@ -1,0 +1,89 @@
+<!-- TABLA -->
+<div fxColumn="row">
+  <div class="cardContainer" fxFlex="100">
+    <md-card>
+      <md-card-title class="center-title">
+        <h3>Contactos</h3>
+      </md-card-title>
+      <md-card-content>
+        <form [formGroup]="filterForm" novalidate>
+          <div fxLayout="row" fxLayoutWrap>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-input-container>
+                <input mdInput type="text" name="datos" placeholder="Buscar" class="form-control" required name="filtro" formControlName="datos">
+              </md-input-container>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Estado" formControlName="estado">
+                <md-option [value]="'Todos'">Todos</md-option>
+                <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+                <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+                <md-option [value]="'Inscripto'">Inscripto</md-option>
+                <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Por Aprobar'">Por Aprobar</md-option>
+                <md-option *ngIf="auth.authenticated() && auth.user.admin" [value]="'Pre Inscripto / SC'">Pre Inscripto / SC</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25" *ngIf="auth.authenticated() && auth.user.admin">
+              <md-checkbox name="observados" formControlName="observados">Incluir Observados</md-checkbox>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="limite" formControlName="limite">
+                <md-option [value]="10">10</md-option>
+                <md-option [value]="50">50</md-option>
+                <md-option [value]="100">100</md-option>
+                <md-option [value]="200">200</md-option>
+                <md-option [value]="500">500</md-option>
+                <md-option [value]="1000">1000</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Provincia" name="provincia" formControlName="provincia">
+                <md-option *ngFor="let provincia of provincias" [value]="provincia.name">{{ provincia.name }}</md-option>
+              </md-select>
+            </div>
+
+          </div>
+        </form>
+
+        <div fxLayout="row">
+          <div fxFlex class="center">
+            <h4>Nombre</h4>
+          </div>
+          <div fxFlex class="center">
+            <h4>Estado</h4>
+          </div>
+          <div fxFlex class="center">
+            <h4>Email</h4>
+          </div>
+          <div fxFlex class="center">
+            <h4>Telefono</h4>
+          </div>
+          <div fxFlex fxHide.sm fxHide.xs class="center">
+            <h4>Observaciones</h4>
+          </div>
+        </div>
+        <div *ngIf="eti">
+          <div fxLayout="row" *ngFor="let inscripto of inscripcionesFiltradas">
+            <div fxFlex>
+              <h5>{{inscripto.nombre}} {{inscripto.apellido}}</h5>
+            </div>
+            <div fxFlex>
+              <h5>{{inscripto.estado}}</h5>
+            </div>
+            <div fxFlex fxHide.sm fxHide.xs class="center">
+              <h5>{{inscripto.email}}</h5>
+            </div>
+            <div fxFlex fxHide.sm fxHide.xs>
+              <h5>{{inscripto.telefono}}</h5>
+            </div>
+            <div fxFlex fxHide.sm fxHide.xs>
+              <md-input-container>
+                <textarea mdInput type="text" [(ngModel)]="inscripto.notas" placeholder="Observaciones" class="form-control"></textarea>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
