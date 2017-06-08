@@ -77,14 +77,16 @@ export class EtiComponent implements OnInit, OnDestroy {
         this.cantidadPreInscriptos  = this.preInscriptos.length;
         this.cantidadEnEspera = _.filter(eti.inscripciones, {estado : 'En lista de espera'}).length;
         _.map(this.preInscriptos, (inscripto: any) => {
-          let fecha = new Date(inscripto.fechaPreInscripcion)
-          if(fecha && !inscripto.fechaPreInscripcionParsed) {
-            inscripto.fechaPreInscripcionParsed = this.parsearFecha(fecha);
-          }
-          if(!inscripto.fechaVencimiento && fecha) {
-            let fechaVencimiento = this.contarDiasHabiles(fecha, 7);
-            inscripto.vencido = this.vencido(fechaVencimiento);
-            inscripto.fechaVencimientoParsed = this.parsearFecha(fechaVencimiento);
+          if (inscripto.fechaPreInscripcion) {
+            let fecha = new Date(inscripto.fechaPreInscripcion)
+            if(!inscripto.fechaPreInscripcionParsed) {
+              inscripto.fechaPreInscripcionParsed = this.parsearFecha(fecha);
+            }
+            if(!inscripto.fechaVencimiento) {
+              let fechaVencimiento = this.contarDiasHabiles(fecha, 7);
+              inscripto.vencido = this.vencido(fechaVencimiento);
+              inscripto.fechaVencimientoParsed = this.parsearFecha(fechaVencimiento);
+            }
           }
         });
         this.filtrarInscriptos(this.filterForm.value);
