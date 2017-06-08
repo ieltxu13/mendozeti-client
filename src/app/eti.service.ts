@@ -69,4 +69,9 @@ export class EtiService {
     const url = `${this.etiUrl}/${etiId}/inscripcion/${inscriptoId}/reenviarmail`;
     return this._http.get(url);
   }
+
+  enviarMailAviso(etiId) {
+    const url = `${this.etiUrl}/${etiId}/inscripcion/maildeaviso`;
+    return this._http.get(url);
+  }
 }

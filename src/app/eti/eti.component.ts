@@ -6,6 +6,8 @@ import {
   } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+import {MdSnackBar} from '@angular/material';
+
 
 import * as _ from 'lodash';
 
@@ -57,7 +59,8 @@ export class EtiComponent implements OnInit, OnDestroy {
   constructor(private _route: ActivatedRoute,
     private _etiService: EtiService,
     public auth: AuthService,
-    public formBuilder: FormBuilder) { }
+    public formBuilder: FormBuilder,
+    public snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.filterForm = this.formBuilder.group({
@@ -177,5 +180,24 @@ export class EtiComponent implements OnInit, OnDestroy {
 
   vencido(fecha: Date) {
     return fecha && (fecha.getTime() < this.fechaHoy.getTime());
+  }
+
+  enviarMailAviso() {
+    this.snackBar.open('Enviando mails..','', {
+      duration: 3000,
+    });
+
+    this._etiService.enviarMailAviso(this.eti._id)
+    .subscribe((mails) => {
+      console.log(mails)
+      this.snackBar.open('Mails de aviso enviados!','', {
+        duration: 3000,
+      });
+    },
+    error => {
+      this.snackBar.open('Error al enviar mails','', {
+        duration: 3000,
+      });
+    })
   }
 }
