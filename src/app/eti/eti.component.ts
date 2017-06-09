@@ -20,6 +20,7 @@ import { AuthService } from '../auth.service';
 })
 export class EtiComponent implements OnInit, OnDestroy {
   eti: any;
+  verSexo: false;
   cantidadInscriptos: number;
   preInscriptos: any;
   cantidadPreInscriptos: number;
@@ -197,6 +198,21 @@ export class EtiComponent implements OnInit, OnDestroy {
     error => {
       this.snackBar.open('Error al enviar mails','', {
         duration: 3000,
+      });
+    })
+  }
+
+  elegirSexo(inscripto, valor) {
+    inscripto.sexo = valor;
+    this._etiService.updateInscripto(inscripto).subscribe(
+    () => {
+      this.snackBar.open(inscripto.nombre + 'Actualizado','', {
+        duration: 3000,
+      });
+    },
+    error => {
+      this.snackBar.open('Error al actualizar a '+ inscripto.nombre,'', {
+        duration: 2000,
       });
     })
   }

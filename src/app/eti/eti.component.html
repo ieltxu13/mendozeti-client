@@ -1,6 +1,6 @@
 <br>
 <div fxColumn="row" *ngIf="eti">
-  <div class="cardContainer" fxFlex="80" fxFlexOffset="10">
+  <div class="cardContainer" fxFlex="90" fxFlexOffset="5">
     <md-card>
       <md-card-title class="center-title">
         {{ eti.nombre }}
@@ -20,7 +20,7 @@
   </div>
 </div>
 <div fxColumn="row" *ngIf="eti && auth.authenticated() && auth.user.admin">
-  <div class="cardContainer" fxFlex="80" fxFlexOffset="10">
+  <div class="cardContainer" fxFlex="90" fxFlexOffset="5">
     <md-card>
       <div fxFlex>
         <a md-button color="primary" [routerLink]="['/comprobantes', eti._id]">Listado de comprobantes</a>
@@ -43,7 +43,7 @@
 </div>
 <!-- TABLA -->
 <div fxColumn="row">
-  <div class="cardContainer" fxFlex="80" fxFlexOffset="10">
+  <div class="cardContainer" fxFlex="90" fxFlexOffset="5">
     <md-card>
       <md-card-title class="center-title">
         <h2>Listado de Inscriptos</h2>
@@ -92,6 +92,11 @@
         </form>
 
         <div fxLayout="row">
+          <div fxFlex="50" fxFlex.gt-sm="25" *ngIf="auth.authenticated() && auth.user.admin">
+            <md-checkbox [(ngModel)]="verSexo">Ver / Cambiar sexo</md-checkbox>
+          </div>
+        </div>
+        <div fxLayout="row">
           <div fxFlex>
             <h2>Nombre</h2>
           </div>
@@ -100,6 +105,9 @@
           </div>
           <div fxFlex fxHide.sm fxHide.xs>
             <h2>Fecha Pre-Inscripcion</h2>
+          </div>
+          <div fxFlex fxHide.sm fxHide.xs *ngIf="verSexo">
+            <h2>Sexo</h2>
           </div>
           <div fxFlex fxHide.sm fxHide.xs>
             <h2>Fecha Vencimiento</h2>
@@ -118,6 +126,12 @@
             </div>
             <div fxFlex fxHide.sm fxHide.xs>
               <h3>{{inscripto.fechaPreInscripcionParsed}}</h3>
+            </div>
+            <div fxFlex fxHide.sm fxHide.xs *ngIf="verSexo">
+              <md-radio-group [(ngModel)]="inscripto.sexo" (change)="elegirSexo(inscripto, $event.value)">
+                <md-radio-button value="Masculino">Masculino</md-radio-button>
+                <md-radio-button value="Femenino">Femenino</md-radio-button>
+              </md-radio-group>
             </div>
             <div fxFlex fxHide.sm fxHide.xs>
               <h3 [ngClass]="{'vencido': inscripto.vencido }">
