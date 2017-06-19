@@ -114,7 +114,20 @@ export class PlanillaDeAprobacionComponent implements OnInit {
         !_.isUndefined(inscripcion.documento) && inscripcion.documento.toUpperCase().indexOf(filtros.datos.toUpperCase()) !== -1;
       })
       .filter((inscripcion:any) => {
-        return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante;
+        switch(filtros.estado.toUpperCase()) {
+          case 'TODOS':
+            return true;
+          case '':
+            return true;
+          case 'POR APROBAR':
+            return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante;
+          case 'PRE INSCRIPTO / SC':
+            return inscripcion.estado.toUpperCase() == 'PRE INSCRIPTO' && inscripcion.comprobante == undefined;
+          case 'OBSERVADOS':
+            return inscripcion.observado;
+          default:
+            return inscripcion.estado.toUpperCase() == filtros.estado.toUpperCase();
+        }
       })
       .filter((inscripcion: any) => {
         if(filtros.observados) {

@@ -58,12 +58,15 @@
             <md-icon><i class="material-icons">content_cut</i></md-icon>
           </div>
           <div fxFlex="10" class="center">
+            <md-icon><i class="material-icons">local_dining</i></md-icon>
+          </div>
+          <div fxFlex="5" class="center">
             Total
           </div>
-          <div fxFlex class="center">
+          <div fxFlex="10" class="center">
             <h4>Nº Transacción</h4>
           </div>
-          <div fxFlex class="center">
+          <div fxFlex="10" class="center">
             <h4>Fecha</h4>
           </div>
           <div fxFlex class="center">
@@ -102,15 +105,20 @@
             </div>
             <div fxFlex="10" fxHide.sm fxHide.xs class="center">
               <h5>
+                {{inscripto.tipoComida}}
+              </h5>
+            </div>
+            <div fxFlex="5" fxHide.sm fxHide.xs class="center">
+              <h5>
                 {{650 + (inscripto.remera ? 150 : 0 )+ (inscripto.seminario ? 40 : 0) + (inscripto.alojamiento ? 500 : 0)}}
               </h5>
             </div>
-            <div fxFlex="15" fxHide.sm fxHide.xs>
+            <div fxFlex="10" fxHide.sm fxHide.xs>
               <md-input-container>
                 <input mdInput type="text" [(ngModel)]="inscripto.referencia" placeholder="Referencia del comprobante" class="form-control">
               </md-input-container>
             </div>
-            <div fxFlex="15" fxHide.sm fxHide.xs>
+            <div fxFlex="10" fxHide.sm fxHide.xs>
               <md-input-container>
                 <input mdInput [(ngModel)]="inscripto.fechaComprobante" [mdDatepicker]="myDatepicker">
                 <button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
