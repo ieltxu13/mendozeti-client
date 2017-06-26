@@ -1,0 +1,253 @@
+<br>
+<!-- TABLA -->
+<div fxColumn="row">
+  <div class="cardContainer" fxFlex="100">
+    <md-card>
+      <md-card-title class="center-title">
+        <h2>Reportes</h2>
+      </md-card-title>
+      <md-card-content>
+        <form [formGroup]="filterForm" novalidate>
+          <div fxLayout="row" fxLayoutWrap>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-input-container>
+                <input mdInput type="text" name="datos" placeholder="Buscar" class="form-control" required name="filtro" formControlName="datos">
+              </md-input-container>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Estado" formControlName="estado">
+                <md-option [value]="'Todos'">Todos</md-option>
+                <md-option [value]="'Pre inscripto'">Pre inscripto</md-option>
+                <md-option [value]="'En lista de espera'">En lista de espera</md-option>
+                <md-option [value]="'Inscripto'">Inscripto</md-option>
+                <md-option [value]="'No Vencidos'">No Vencidos</md-option>
+                <md-option [value]="'Por Aprobar'">Por Aprobar</md-option>
+                <md-option [value]="'Pre Inscripto / SC'">Pre Inscripto / SC</md-option>
+                <md-option [value]="'Observados'">Observados</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25" *ngIf="auth.authenticated() && auth.user.admin">
+              <md-checkbox name="observados" formControlName="observados">Incluir Observados</md-checkbox>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="limite" formControlName="limite">
+                <md-option [value]="10">10</md-option>
+                <md-option [value]="50">50</md-option>
+                <md-option [value]="100">100</md-option>
+                <md-option [value]="200">200</md-option>
+                <md-option [value]="500">500</md-option>
+                <md-option [value]="1000">1000</md-option>
+                <md-option [value]="1500">1500</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Provincia" name="provincia" formControlName="provincia">
+                <md-option *ngFor="let provincia of provincias" [value]="provincia.name">{{ provincia.name }}</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Remera" name="remera" formControlName="remera">
+                <md-option [value]="''">Todos</md-option>
+                <md-option [value]="'Si'">Si</md-option>
+                <md-option [value]="'No'">No</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Alojamiento" name="alojamiento" formControlName="alojamiento">
+                <md-option [value]="''">Todos</md-option>
+                <md-option [value]="'Si'">Si</md-option>
+                <md-option [value]="'No'">No</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Seminario" name="seminario" formControlName="seminario">
+                <md-option [value]="''">Todos</md-option>
+                <md-option [value]="'Si'">Si</md-option>
+                <md-option [value]="'Solo tarde'">Solo tarde</md-option>
+                <md-option [value]="'Solo mañana'">Solo mañana</md-option>
+                <md-option [value]="'No'">No</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="50" fxFlex.gt-sm="25">
+              <md-select placeholder="Comida" name="comida" formControlName="tipoComida">
+                <md-option [value]="''">Todos</md-option>
+                <md-option [value]="'Carnivoro'">Carnivoro</md-option>
+                <md-option [value]="'Vegetariano'">Vegetariano</md-option>
+                <md-option [value]="'Celiaco'">Celiaco</md-option>
+              </md-select>
+            </div>
+            <div fxFlex="10">
+
+            </div>
+          </div>
+        </form>
+
+        <md-tab-group>
+          <md-tab label="Listado">
+            <div fxLayout="row">
+              <div fxFlex>
+                <md-checkbox #mostrarEstado>Mostrar estado</md-checkbox>
+              </div>
+              <div fxFlex>
+                <md-checkbox #mostrarDocumento>Mostrar dni</md-checkbox>
+              </div>
+              <div fxFlex>
+                <md-checkbox #mostrarTalle>Mostrar talle Remera</md-checkbox>
+              </div>
+              <div fxFlex>
+                <md-checkbox #mostrarTurnoSeminario>Mostrar turno Seminario</md-checkbox>
+              </div>
+              <div fxFlex>
+                <md-checkbox #mostrarTelefono>Mostrar Telefono</md-checkbox>
+              </div>
+              <div fxFlex>
+                <md-checkbox #mostrarEmail>Mostrar Email</md-checkbox>
+              </div>
+              <div fxFlex>
+                <md-checkbox #mostrarAlojamiento>Mostrar Alojamiento</md-checkbox>
+              </div>
+              <div fxFlex="10">
+
+              </div>
+            </div>
+
+
+            <div fxLayout="row">
+              <div fxFlex>
+                Nombre
+              </div>
+              <div fxFlex *ngIf="mostrarEstado.checked">
+                Estado
+              </div>
+              <div fxFlex *ngIf="mostrarDocumento.checked">
+                Dni
+              </div>
+              <div fxFlex *ngIf="mostrarTalle.checked">
+                Talle Remera
+              </div>
+              <div fxFlex *ngIf="mostrarTurnoSeminario.checked">
+                Seminario
+              </div>
+              <div fxFlex *ngIf="mostrarTelefono.checked">
+                Telefono
+              </div>
+              <div fxFlex *ngIf="mostrarEmail.checked">
+                Email
+              </div>
+              <div fxFlex *ngIf="mostrarAlojamiento.checked">
+                Alojamiento
+              </div>
+            </div>
+            <div *ngIf="eti">
+              <div fxLayout="row" *ngFor="let inscripto of inscripcionesFiltradas">
+                <div fxFlex>
+                  {{inscripto.nombre}} {{inscripto.apellido}}
+                </div>
+                <div fxFlex *ngIf="mostrarEstado.checked">
+                  {{inscripto.estado}}
+                </div>
+                <div fxFlex *ngIf="mostrarDocumento.checked">
+                  {{inscripto.documento}}
+                </div>
+                <div fxFlex *ngIf="mostrarTalle.checked">
+                  {{inscripto.talleRemera}}
+                </div>
+                <div fxFlex *ngIf="mostrarTurnoSeminario.checked">
+                  {{inscripto.turnoSeminario}}
+                </div>
+                <div fxFlex *ngIf="mostrarTelefono.checked">
+                  {{inscripto.telefono}}
+                </div>
+                <div fxFlex *ngIf="mostrarEmail.checked">
+                  {{inscripto.email}}
+                </div>
+                <div fxFlex *ngIf="mostrarAlojamiento.checked">
+                  {{inscripto.alojamiento ? 'SI' : 'No'}}
+                </div>
+              </div>
+            </div>
+          </md-tab>
+          <md-tab label="Cantidades">
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>Total:</h3>{{ inscripcionesFiltradas ? inscripcionesFiltradas.length : '0' }}
+              </div>
+              <div fxFlex>
+                <h3>Alojamiento:</h3>{{ alojamientos.length }}
+              </div>
+              <div fxFlex>
+                <h3>Carnivoros:</h3>{{ carnivoros.length }}
+              </div>
+              <div fxFlex>
+                <h3>Vegetarianos:</h3>{{ vegetarianos.length }}
+              </div>
+              <div fxFlex>
+                <h3>Celiacos:</h3>{{ celiacos.length }}
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>Remeras Hombres:</h3>{{ remerasHombre.length }}
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>XS:</h3>{{ hombreXS.length }}
+              </div>
+              <div fxFlex>
+                <h3>S:</h3>{{ hombreS.length }}
+              </div>
+              <div fxFlex>
+                <h3>L:</h3>{{ hombreL.length }}
+              </div>
+              <div fxFlex>
+                <h3>XL:</h3>{{ hombreXL.length }}
+              </div>
+              <div fxFlex>
+                <h3>XXL:</h3>{{ hombreXXL.length }}
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>Remeras Mujer:</h3>{{ remerasMujer.length }}
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>XS:</h3>{{ mujerXS.length }}
+              </div>
+              <div fxFlex>
+                <h3>S:</h3>{{ mujerS.length }}
+              </div>
+              <div fxFlex>
+                <h3>L:</h3>{{ mujerL.length }}
+              </div>
+              <div fxFlex>
+                <h3>XL:</h3>{{ mujerXL.length }}
+              </div>
+              <div fxFlex>
+                <h3>XXL:</h3>{{ mujerXXL.length }}
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>Seminaros:</h3>{{ seminarios.length }}
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex>
+                <h3>Mañana:</h3>{{ seminarioPrimero.length }}
+              </div>
+              <div fxFlex>
+                <h3>Tarde:</h3>{{ seminarioSegundo.length }}
+              </div>
+              <div fxFlex>
+                <h3>Cualquiera:</h3>{{ seminarioCualquiera.length }}
+              </div>
+            </div>
+          </md-tab>
+        </md-tab-group>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
