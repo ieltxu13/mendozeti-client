@@ -150,10 +150,10 @@
                   {{inscripto.documento}}
                 </div>
                 <div fxFlex *ngIf="mostrarTalle.checked">
-                  {{inscripto.talleRemera}}
+                  {{inscripto.remera ? inscripto.talleRemera : 'NO'}}
                 </div>
                 <div fxFlex *ngIf="mostrarTurnoSeminario.checked">
-                  {{inscripto.turnoSeminario}}
+                  {{inscripto.seminario ? inscripto.turnoSeminario : 'NO'}}
                 </div>
                 <div fxFlex *ngIf="mostrarTelefono.checked">
                   {{inscripto.telefono}}
